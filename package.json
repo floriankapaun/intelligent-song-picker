@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "webpack serve --mode development",
-    "build": "webpack"
+    "serve": "webpack serve --env mode=development",
+    "build": "webpack --env mode=production"
   },
   "dependencies": {
     "@tensorflow-models/face-landmarks-detection": "0.0.1",

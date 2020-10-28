@@ -7,6 +7,7 @@ const tfjsBackendWebgl = import(/* webpackPreload: true */ '@tensorflow/tfjs-bac
 
 async function getComponent() {
     const element = document.createElement('div');
+    console.log('test');
     return element;
 }
  
