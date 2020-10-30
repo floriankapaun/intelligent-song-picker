@@ -22,6 +22,14 @@ module.exports = (env) => {
                 },
             ],
         },
+        module: {
+            rules: [
+                {
+                    test: /\.handlebars$/,
+                    loader: 'handlebars-loader',
+                },
+            ],
+        },
         plugins: [
             new CleanWebpackPlugin(),
             new HtmlWebpackPlugin({
