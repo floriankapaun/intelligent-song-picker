@@ -5,12 +5,15 @@ const faceLandmarksDetection = import(/* webpackPreload: true */ '@tensorflow-mo
 // require('@tensorflow/tfjs-backend-webgl');
 const tfjsBackendWebgl = import(/* webpackPreload: true */ '@tensorflow/tfjs-backend-webgl');
 
-async function getComponent() {
-    const element = document.createElement('div');
-    console.log('test');
-    return element;
+const main = async () => {
+    // Load the MediaPipe FaceMesh package.
+    const model = await (await faceLandmarksDetection).load(
+        (await faceLandmarksDetection).SupportedPackages.mediapipeFacemesh,
+    );
+    
+    const predictions = await model.estimateFaces({
+        input: document.querySelector('video'),
+    });
 }
- 
-getComponent().then(component => {
-    document.body.appendChild(component);
-});
+
+main();

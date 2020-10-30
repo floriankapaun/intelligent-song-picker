@@ -13,10 +13,24 @@ module.exports = (env) => {
         devServer: {
             contentBase: './dist',
         },
+        module: {
+            rules: [
+                {
+                    test: /\.handlebars$/,
+                    loader: 'handlebars-loader',
+                },
+            ],
+        },
         plugins: [
             new CleanWebpackPlugin(),
             new HtmlWebpackPlugin({
                 title: 'Facial Spotify Controller',
+                template: 'src/index.handlebars',
+                templateParameters: {
+                    title: 'Sensing extended realities',
+                },
+                scriptLoading: 'defer',
+                hash: true,
             }),
         ],
         output: {
