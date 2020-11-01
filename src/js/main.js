@@ -6,10 +6,13 @@ const tf = import(/* webpackPreload: true */ '@tensorflow/tfjs-core');
 
 const VIDEO_SIZE = 500;
 
-let model, ctx, videoWidth, videoHeight, video, canvas;
+const video = document.getElementById('video');
+const canvas = document.getElementById('output');
+const canvasContainer = document.querySelector('.canvas-wrapper');
+
+let model, ctx, videoWidth, videoHeight;
 
 async function setupCamera() {
-    video = document.getElementById('video');
 
     const stream = await navigator.mediaDevices.getUserMedia({
         audio: false,
@@ -29,7 +32,7 @@ async function setupCamera() {
 }
 
 async function renderPrediction() {
-
+    // the first prediction is taking very long.
     const predictions = await model.estimateFaces({
         input: video,
     });
@@ -63,10 +66,8 @@ async function main() {
     video.width = videoWidth;
     video.height = videoHeight;
 
-    canvas = document.getElementById('output');
     canvas.width = videoWidth;
     canvas.height = videoHeight;
-    const canvasContainer = document.querySelector('.canvas-wrapper');
     canvasContainer.style = `width: ${videoWidth}px; height: ${videoHeight}px`;
 
     ctx = canvas.getContext('2d');

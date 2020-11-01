@@ -15,10 +15,10 @@ body {
     background-color: var(--paper);
 }
 
+.canvas-wrapper {
+    position: relative;
+}
+
 #video {
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    visibility: hidden;
-    width: auto;
-    height: auto;
+    display: none;
 }
