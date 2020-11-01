@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env) => {
     const mode = env.mode;
@@ -9,6 +10,7 @@ module.exports = (env) => {
         mode: mode,
         entry: {
             app: './src/js/main.js',
+            main: './src/css/main.css',
         },
         devServer: {
             contentBase: './dist',
@@ -19,6 +21,15 @@ module.exports = (env) => {
                 {
                     test: /\.handlebars$/,
                     loader: 'handlebars-loader',
+                },
+                {
+                    test: /\.(sa|sc|c)ss$/,
+                    use: [
+                        mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+                        'css-loader',
+                        // 'postcss-loader',
+                        // 'sass-loader',
+                    ],
                 },
             ],
         },
@@ -40,7 +51,11 @@ module.exports = (env) => {
         },
     };
 
-    if (mode === 'development') config.devtool = 'inline-source-map';
+    if (mode === 'development') { 
+        config.devtool = 'inline-source-map';
+    } else if (mode === 'production') {
+        config.plugins.push(new MiniCssExtractPlugin());
+    }
 
     return config;
 };

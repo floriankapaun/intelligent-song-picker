@@ -1,3 +1,5 @@
+// import '../css/main.css';
+
 const faceLandmarksDetection = import(/* webpackPreload: true */ '@tensorflow-models/face-landmarks-detection');
 const tfjsBackendWebgl = import(/* webpackPreload: true */ '@tensorflow/tfjs-backend-webgl');
 const tf = import(/* webpackPreload: true */ '@tensorflow/tfjs-core');
@@ -71,8 +73,6 @@ async function main() {
     ctx.translate(canvas.width, 0);
     ctx.scale(-1, 1);
     ctx.fillStyle = '#32EEDB';
-    ctx.strokeStyle = '#32EEDB';
-    ctx.lineWidth = 0.5;
 
     model = await (await faceLandmarksDetection).load(
         (await faceLandmarksDetection).SupportedPackages.mediapipeFacemesh,

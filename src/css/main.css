@@ -2,10 +2,23 @@
 
 :root {
     font-size: 115%;
+    --green: #1db954;
+    --paper: #131313;
+    --ink: #ffffff;
 }
 
 body {
     font-family: sans-serif;
     font-size: 1rem;
     line-height: 1.5;
+    color: var(--ink);
+    background-color: var(--paper);
+}
+
+#video {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    visibility: hidden;
+    width: auto;
+    height: auto;
 }

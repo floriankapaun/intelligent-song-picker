@@ -6,17 +6,10 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <h1>Handlebars</h1>
-    <div class="canvas-wrapper"></div>
+    <h1>{{ title }}</h1>
+    <div class="canvas-wrapper">
         <canvas id="output"></canvas>
-        <video id="video" playsinline style="
-            -webkit-transform: scaleX(-1);
-            transform: scaleX(-1);
-            visibility: hidden;
-            width: auto;
-            height: auto;
-            ">
-            </video>
+        <video id="video" playsinline></video>
     </div>
 </body>
 </html>
