@@ -28,7 +28,7 @@ module.exports = (env) => {
                 title: 'Facial Spotify Controller',
                 template: 'src/index.handlebars',
                 templateParameters: {
-                    title: 'Sensing extended realities',
+                    title: 'Facial Spotify Controller',
                 },
                 scriptLoading: 'defer',
                 hash: true,
