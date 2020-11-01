@@ -34,54 +34,52 @@ async function renderPrediction() {
         input: video,
     });
 
-  ctx.drawImage(
-      video, 0, 0, videoWidth, videoHeight, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(
+        video, 0, 0, videoWidth, videoHeight, 0, 0, canvas.width, canvas.height,
+    );
 
-  if (predictions.length > 0) {
-    predictions.forEach(prediction => {
-      const keypoints = prediction.scaledMesh;
-      
-      for (let i = 0; i < keypoints.length; i++) {
-        const x = keypoints[i][0];
-        const y = keypoints[i][1];
+    if (predictions.length > 0) {
+        for (let i = 0; i < predictions.length; i++) {
+            const keypoints = predictions[i].scaledMesh;
+            for (let j = 0; j < keypoints.length; j++) {
+                const [x, y] = keypoints[j];
+                ctx.beginPath();
+                ctx.arc(x, y, 1 /* radius */, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+    }
 
-        ctx.beginPath();
-        ctx.arc(x, y, 1 /* radius */, 0, 2 * Math.PI);
-        ctx.fill();
-      }
-    });
-  }
-
-  requestAnimationFrame(renderPrediction);
+    requestAnimationFrame(renderPrediction);
 };
 
 async function main() {
-await tfjsBackendWebgl;
-  await (await tf).setBackend('webgl');
-  await setupCamera();
-  video.play();
-  videoWidth = video.videoWidth;
-  videoHeight = video.videoHeight;
-  video.width = videoWidth;
-  video.height = videoHeight;
+    await tfjsBackendWebgl;
+    await (await tf).setBackend('webgl');
+    await setupCamera();
+    video.play();
+    videoWidth = video.videoWidth;
+    videoHeight = video.videoHeight;
+    video.width = videoWidth;
+    video.height = videoHeight;
 
-  canvas = document.getElementById('output');
-  canvas.width = videoWidth;
-  canvas.height = videoHeight;
-  const canvasContainer = document.querySelector('.canvas-wrapper');
-  canvasContainer.style = `width: ${videoWidth}px; height: ${videoHeight}px`;
+    canvas = document.getElementById('output');
+    canvas.width = videoWidth;
+    canvas.height = videoHeight;
+    const canvasContainer = document.querySelector('.canvas-wrapper');
+    canvasContainer.style = `width: ${videoWidth}px; height: ${videoHeight}px`;
 
-  ctx = canvas.getContext('2d');
-  ctx.translate(canvas.width, 0);
-  ctx.scale(-1, 1);
-  ctx.fillStyle = '#32EEDB';
-  ctx.strokeStyle = '#32EEDB';
-  ctx.lineWidth = 0.5;
+    ctx = canvas.getContext('2d');
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+    ctx.fillStyle = '#32EEDB';
+    ctx.strokeStyle = '#32EEDB';
+    ctx.lineWidth = 0.5;
 
-  model = await (await faceLandmarksDetection).load(
-    (await faceLandmarksDetection).SupportedPackages.mediapipeFacemesh,
-);
-  renderPrediction();
+    model = await (await faceLandmarksDetection).load(
+        (await faceLandmarksDetection).SupportedPackages.mediapipeFacemesh,
+    );
+    renderPrediction();
 };
 
 main();
