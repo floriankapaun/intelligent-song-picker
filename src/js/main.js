@@ -7,25 +7,23 @@ const VIDEO_SIZE = 500;
 let model, ctx, videoWidth, videoHeight, video, canvas;
 
 async function setupCamera() {
-  video = document.getElementById('video');
+    video = document.getElementById('video');
 
-  const stream = await navigator.mediaDevices.getUserMedia({
-    'audio': false,
-    'video': {
-      facingMode: 'user',
-      // Only setting the video to a specified size in order to accommodate a
-      // point cloud, so on mobile devices accept the default size.
-      width: VIDEO_SIZE,
-      height: VIDEO_SIZE
-    },
-  });
-  video.srcObject = stream;
+    const stream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+            facingMode: 'user',
+            // width: VIDEO_SIZE,
+            // height: VIDEO_SIZE
+        },
+    });
+    video.srcObject = stream;
 
-  return new Promise((resolve) => {
-    video.onloadedmetadata = () => {
-      resolve(video);
-    };
-  });
+    return new Promise((resolve) => {
+        video.onloadedmetadata = () => {
+            resolve(video);
+        };
+    });
 }
 
 async function renderPrediction() {
