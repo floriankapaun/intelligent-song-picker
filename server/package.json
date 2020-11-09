@@ -1,0 +1,19 @@
+{
+  "name": "facial-spotify-controller-server",
+  "version": "1.0.0",
+  "description": "Server for the Facial Spotify Controller App",
+  "main": "main.js",
+  "repository": "https://github.com/floriankapaun/facial-spotify-controller.git",
+  "author": "Florian Kapaun <hello@florian-kapaun.de>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "querystring": "^0.2.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {}
+}
