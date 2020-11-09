@@ -97,4 +97,4 @@ const canvas = document.getElementById('output');
 
 const fld = new FaceLandmarksDetection(video, canvas);
 
-fld.init();
+// fld.init();
