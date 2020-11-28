@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const PORT = 3008;
+
 module.exports = (env) => {
     const mode = env.mode;
 
@@ -14,7 +16,7 @@ module.exports = (env) => {
         },
         devServer: {
             contentBase: './dist',
-            port: 9000,
+            port: PORT,
         },
         module: {
             rules: [

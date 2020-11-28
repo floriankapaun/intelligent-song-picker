@@ -5,7 +5,7 @@ const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
-const PORT = 3000;
+const PORT = 3007;
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = `http://localhost:${PORT}/callback`;
