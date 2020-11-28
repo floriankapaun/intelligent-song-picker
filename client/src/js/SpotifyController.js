@@ -14,7 +14,6 @@ class SpotifyController {
     async _init() {
         // Get hash params
         const params = getHashParams();
-        console.log(params);
         this.accessToken = params.accessToken;
         this.refreshToken = params.refreshToken;
         this.error = params.error;
@@ -26,7 +25,7 @@ class SpotifyController {
 
         if (this.accessToken) {
             this.loggedIn = true;
-            console.info(`Successfully initialized Spotify Authentication. \nAccessToken: ${this.accessToken}, RefreshToken: ${this.refreshToken}`);
+            console.info('Successfully authenticated with Spotify.');
             // Fetch user data
             await this.getUserData();
             this.setGreeting();
@@ -47,7 +46,6 @@ class SpotifyController {
             .then((response) => response.json())
             .then((data) => {
                 this.user = data;
-                console.info('Received User Data: \n', data);
             })
             .catch((error) => console.error(error));
     }
