@@ -27,7 +27,7 @@ const generateRandomString = (length) => {
 
 const app = express();
 
-app.use(express.static(__dirname + '/public'))
+app.use(express.static('../client/dist/'))
     .use(cors())
     .use(cookieParser());
 

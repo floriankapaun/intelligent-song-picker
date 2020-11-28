@@ -17,6 +17,7 @@ module.exports = (env) => {
         devServer: {
             contentBase: './dist',
             port: PORT,
+            writeToDisk: true,
         },
         module: {
             rules: [
