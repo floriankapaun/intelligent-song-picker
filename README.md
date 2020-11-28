@@ -27,8 +27,8 @@ Install dependencies
 
 Run local server
 
-    node main.js
+    node -r esm main.js
 
 Or install nodemon for hot reloading and run
 
-    nodemon main.js
+    nodemon -r esm main.js

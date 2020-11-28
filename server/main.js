@@ -5,25 +5,13 @@ const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
+import generateRandomString from './utility/generateRandomString.js';
+
 const PORT = 3007;
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = `http://localhost:${PORT}/callback`;
 const STATE_KEY = 'spotify_auth_state';
-
-/**
- * Generates a random string containing numbers and letters
- * @param  {number} length The length of the string
- * @return {string} The generated string
- */
-const generateRandomString = (length) => {
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let string = '';
-    for (let i = 0; i < length; i++) {
-        string += possible.charAt(Math.floor(Math.random() * possible.length));        
-    }
-    return string;
-};
 
 const app = express();
 
