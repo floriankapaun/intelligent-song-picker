@@ -5,6 +5,7 @@ const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
+import { access } from 'fs';
 import generateRandomString from './utility/generateRandomString.js';
 
 const PORT = 3007;
@@ -45,9 +46,8 @@ app.get('/callback', (req, res) => {
     const storedState = req.cookies ? req.cookies[STATE_KEY] : null;
 
     if (state === null || state !== storedState) {
-        res.redirect('/#' + querystring.stringify({
-            error: 'state_mismatch',
-        }));
+        res.cookie('SPOTIFY_AUTH_ERROR', 'state mismatch');
+        res.redirect('/');
     } else {
         res.clearCookie(STATE_KEY);
         const authOptions = {
@@ -72,19 +72,13 @@ app.get('/callback', (req, res) => {
                     headers: { Authorization: `Bearer ${accessToken}` },
                     json: true,
                 };
-                // Use accessToken to access the spotify web api
-                request.get(options, (error, response, body) => {
-                    console.log(body);
-                });
                 // Pass the token to the browser to make requests from there
-                res.redirect('/#' + querystring.stringify({
-                    accessToken: accessToken,
-                    refreshToken: refreshToken,
-                }));
+                res.cookie('SPOTIFY_ACCESS_TOKEN', accessToken);
+                res.cookie('SPOTIFY_REFRESH_TOKEN', refreshToken);
+                res.redirect('/');
             } else {
-                res.redirect('/#' + querystring.stringify({
-                    error: 'invalid_token',
-                }));
+                res.cookie('SPOTIFY_AUTH_ERROR', 'invalid token');
+                res.redirect('/');
             }
         });
     }
