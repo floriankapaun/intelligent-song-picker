@@ -111,20 +111,22 @@ const getHashParams = () => {
 
 const params = getHashParams();
 
-const { access_token, refresh_token, error } = params;
+const refreshButton = document.getElementById('refresh-token');
+
+let { accessToken, refreshToken, error } = params;
 
 if (error) {
     console.error(error);
 } else {
-    if (access_token) {
+    if (accessToken) {
         // oauth info
         console.log({
-            access_token: access_token,
-            refresh_token: refresh_token
+            access_token: accessToken,
+            refresh_token: refreshToken
         });
 
         const headers = {
-            'Authorization': `Bearer ${access_token}`,
+            'Authorization': `Bearer ${accessToken}`,
         };
 
         fetch('https://api.spotify.com/v1/me', { headers })
@@ -132,23 +134,18 @@ if (error) {
                 console.log(response);
             })
             .catch((error) => console.error(error));
-    } else {
-        console.log('user is logged out');
-    }
 
-    // Refresh token
-    // document.getElementById('obtain-new-token').addEventListener('click', function() {
-    //     $.ajax({
-    //       url: '/refresh_token',
-    //       data: {
-    //         'refresh_token': refresh_token
-    //       }
-    //     }).done(function(data) {
-    //       access_token = data.access_token;
-    //       oauthPlaceholder.innerHTML = oauthTemplate({
-    //         access_token: access_token,
-    //         refresh_token: refresh_token
-    //       });
-    //     });
-    //   }, false);
+        // Only create eventlistener if accessToken is set
+        refreshButton.addEventListener('click', () => {
+            fetch(`refresh_token?refreshToken=${refreshToken}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    // Update accessToken
+                    accessToken = data.accessToken;
+                })
+                .catch((error) => console.error(error));
+        })
+    } else {
+        console.info('user is logged out');
+    }
 }

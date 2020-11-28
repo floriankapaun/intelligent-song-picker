@@ -78,8 +78,8 @@ app.get('/callback', (req, res) => {
                 });
                 // Pass the token to the browser to make requests from there
                 res.redirect('/#' + querystring.stringify({
-                    access_token: accessToken,
-                    refresh_token: refreshToken,
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
                 }));
             } else {
                 res.redirect('/#' + querystring.stringify({
@@ -92,7 +92,7 @@ app.get('/callback', (req, res) => {
 
 app.get('/refresh_token', (req, res) => {
     // Requesting access token from refresh token
-    const refreshToken = req.query.refresh_token;
+    const refreshToken = req.query.refreshToken;
     const authOptions = {
         url: 'https://accounts.spotify.com/api/token',
         headers: { 
@@ -109,7 +109,7 @@ app.get('/refresh_token', (req, res) => {
         if (!error && response.statusCode === 200) {
             const accessToken = body.access_token;
             res.send({
-                access_token: accessToken,
+                accessToken: accessToken,
             });
         }
     });
