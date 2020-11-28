@@ -98,3 +98,57 @@ const canvas = document.getElementById('output');
 const fld = new FaceLandmarksDetection(video, canvas);
 
 // fld.init();
+
+const getHashParams = () => {
+    const hashParams = {};
+    let e, r = /([^&;=]+)=?([^&;]*)/g;
+    const query = window.location.hash.substring(1);
+    while (e = r.exec(query)) {
+        hashParams[e[1]] = decodeURIComponent(e[2]);
+    }
+    return hashParams;
+}
+
+const params = getHashParams();
+
+const { access_token, refresh_token, error } = params;
+
+if (error) {
+    console.error(error);
+} else {
+    if (access_token) {
+        // oauth info
+        console.log({
+            access_token: access_token,
+            refresh_token: refresh_token
+        });
+
+        const headers = {
+            'Authorization': `Bearer ${access_token}`,
+        };
+
+        fetch('https://api.spotify.com/v1/me', { headers })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => console.error(error));
+    } else {
+        console.log('user is logged out');
+    }
+
+    // Refresh token
+    // document.getElementById('obtain-new-token').addEventListener('click', function() {
+    //     $.ajax({
+    //       url: '/refresh_token',
+    //       data: {
+    //         'refresh_token': refresh_token
+    //       }
+    //     }).done(function(data) {
+    //       access_token = data.access_token;
+    //       oauthPlaceholder.innerHTML = oauthTemplate({
+    //         access_token: access_token,
+    //         refresh_token: refresh_token
+    //       });
+    //     });
+    //   }, false);
+}
