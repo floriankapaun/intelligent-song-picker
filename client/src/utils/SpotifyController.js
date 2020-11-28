@@ -1,5 +1,5 @@
 import { getHashParams } from './utility.js';
-import c from './config.js';
+import c from '../config/config.js';
 
 class SpotifyController {
     constructor() {

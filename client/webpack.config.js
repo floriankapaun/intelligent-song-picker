@@ -2,6 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { VueLoaderPlugin } = require('vue-loader');
+
 
 const PORT = 3008;
 
@@ -11,8 +13,8 @@ module.exports = (env) => {
     const config = {
         mode: mode,
         entry: {
-            app: './src/js/main.js',
-            main: './src/css/main.css',
+            app: './src/main.js',
+            main: './src/assets/css/main.css',
         },
         devServer: {
             contentBase: './dist',
@@ -34,6 +36,10 @@ module.exports = (env) => {
                         // 'sass-loader',
                     ],
                 },
+                {
+                    test: /\.vue$/,
+                    loader: "vue-loader",
+                },
             ],
         },
         plugins: [
@@ -47,7 +53,14 @@ module.exports = (env) => {
                 scriptLoading: 'defer',
                 hash: true,
             }),
+            new VueLoaderPlugin(),
         ],
+        resolve: {
+            alias: {
+                vue: '@vue/runtime-dom',
+                '@': require('path').resolve(__dirname, 'src'),
+            },
+        },
         output: {
             filename: '[name].bundle.js',
             path: path.resolve(__dirname, 'dist'),

@@ -1,4 +1,4 @@
-import c from './config.js';
+import c from '../config/config.js';
 import { parseLocation, findViewByPath, getCookie } from './utility.js';
 
 // Full history of pages visited

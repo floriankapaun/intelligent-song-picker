@@ -1,4 +1,4 @@
-import c from './config.js';
+import c from '../config/config.js';
 
 export const getHashParams = () => {
     const hashParams = {};

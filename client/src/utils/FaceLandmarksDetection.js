@@ -2,7 +2,7 @@ const tfFaceLandmarksDetection = import(/* webpackPreload: true */ '@tensorflow-
 const tfjsBackendWebgl = import(/* webpackPreload: true */ '@tensorflow/tfjs-backend-webgl');
 const tf = import(/* webpackPreload: true */ '@tensorflow/tfjs-core');
 
-import config from './config.js';
+import config from '../config/config.js';
 
 class FaceLandmarksDetection {
     constructor(input, output) {
