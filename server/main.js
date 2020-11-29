@@ -16,14 +16,8 @@ const STATE_KEY = 'spotify_auth_state';
 
 const app = express();
 
-app.use(history())
-    .use(express.static('../client/dist/'))
-    .use(cors())
+app.use(cors())
     .use(cookieParser());
-
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-});
 
 app.get('/login', (req, res) => {
     const state = generateRandomString(16);
@@ -109,6 +103,9 @@ app.get('/refresh_token', (req, res) => {
         }
     });
 });
+
+app.use(history())
+    .use(express.static('../client/dist/'));
 
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`);
