@@ -1,12 +1,12 @@
-const express = require('express');
-const request = require('request');
-const cors = require('cors');
-const querystring = require('querystring');
-const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
-import { access } from 'fs';
-import generateRandomString from './utility/generateRandomString.js';
+import express from 'express';
+import request from 'request';
+import cors from 'cors';
+import history from 'connect-history-api-fallback';
+import querystring from 'querystring';
+import cookieParser from 'cookie-parser';
+import generateRandomString from './utils/generateRandomString.js';
 
 const PORT = 3007;
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
@@ -16,7 +16,8 @@ const STATE_KEY = 'spotify_auth_state';
 
 const app = express();
 
-app.use(express.static('../client/dist/'))
+app.use(history())
+    .use(express.static('../client/dist/'))
     .use(cors())
     .use(cookieParser());
 
