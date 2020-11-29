@@ -1,16 +1,3 @@
-import c from '../config/config.js';
-
-export const getHashParams = () => {
-    const hashParams = {};
-    const query = window.location.hash.substring(1);
-    const r = /([^&;=]+)=?([^&;]*)/g;
-    let e = r;
-    while (e = r.exec(query)) {
-        hashParams[e[1]] = decodeURIComponent(e[2]);
-    }
-    return hashParams;
-};
-
 export const setCookie = (cookieName, cookieValue, daysToExist = 365) => {
     // Encode cookieValue in order to escape semicolons, commas, and whitespace
     const encodedCookieValue = encodeURIComponent(cookieValue);
@@ -31,7 +18,3 @@ export const getCookie = (cookieName) => {
     }
     return null;
 }
-
-export const parseLocation = () => location.hash.slice(1).toLowerCase() || '/';
-
-export const findViewByPath = (path) => c.routes.find((r) => r.path.match(new RegExp(`^\\${path}$`, 'gm'))) || undefined;
