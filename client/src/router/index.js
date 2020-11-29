@@ -35,7 +35,7 @@ const routes = [
         name: '404',
         component: Error,
     },
-    { path: '*', redirect: '/404' }
+    { path: '/:catchAll(.*)', redirect: '/404' }
 ];
 
 const router = createRouter({
