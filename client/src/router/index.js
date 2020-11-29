@@ -1,9 +1,11 @@
 import { createWebHistory, createRouter } from 'vue-router';
+
+import { getCookie } from '@/utils/utility.js';
+
 import Home from '@/views/Home.vue';
 import About from '@/views/About.vue';
 import App from '@/views/App.vue';
-
-import { getCookie } from '@/utils/utility.js';
+import Error from '@/views/Error.vue';
 
 const routes = [
     {
@@ -27,7 +29,13 @@ const routes = [
         meta: {
             requiresAuth: true
         }
-    }
+    },
+    {
+        path: '/404',
+        name: '404',
+        component: Error,
+    },
+    { path: '*', redirect: '/404' }
 ];
 
 const router = createRouter({
