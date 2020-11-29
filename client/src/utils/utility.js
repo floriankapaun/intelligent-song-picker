@@ -3,7 +3,7 @@ export const setCookie = (cookieName, cookieValue, daysToExist = 365) => {
     const encodedCookieValue = encodeURIComponent(cookieValue);
     const expirationDate = daysToExist * 24 * 60 * 60;
     document.cookie = `${cookieName}=${encodedCookieValue};max-age=${expirationDate};path=/;`;
-}
+};
 
 export const getCookie = (cookieName) => {
     // Decode the cookie string, to handle cookies with special characters, e.g. '$'
@@ -17,4 +17,8 @@ export const getCookie = (cookieName) => {
         if (cookieName === cookie[0].trim()) return cookie[1];
     }
     return null;
-}
+};
+
+export const deleteCookie = (cookieName) => {
+    setCookie(cookieName, '', -1);
+};
