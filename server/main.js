@@ -1,6 +1,7 @@
 const express = require('express');
 const request = require('request');
 const cors = require('cors');
+import history from 'connect-history-api-fallback';
 const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
@@ -16,7 +17,8 @@ const STATE_KEY = 'spotify_auth_state';
 
 const app = express();
 
-app.use(express.static('../client/dist/'))
+app.use(history())
+    .use(express.static('../client/dist/'))
     .use(cors())
     .use(cookieParser());
 
