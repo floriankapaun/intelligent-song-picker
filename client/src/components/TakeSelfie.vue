@@ -1,7 +1,9 @@
 <template>
   <div>
     <h1 class="sr-only">Take a selfie</h1>
-    <video ref ="video" src=""></video>
+    <div class="fullscreen-background_wrapper">
+      <video ref ="video" src=""></video>
+    </div>
     <button @click="this.$refs.video.play()">Play Video</button>
     <button @click="takeSelfie">Take a picture</button>
     <canvas ref="canvas" class="hidden"></canvas>
@@ -28,7 +30,8 @@ export default {
         canvas.width = videoWidth;
         canvas.height = videoHeight;
         context.drawImage(video, 0, 0, videoWidth, videoHeight);
-        this.$emit('tookSelfie', canvas.toDataURL('image/png'))
+        console.log();
+        this.$emit('tookSelfie', context.getImageData(0, 0, videoWidth, videoHeight));
       }
     },
   },

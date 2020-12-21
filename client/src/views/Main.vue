@@ -20,6 +20,7 @@ export default {
     methods: {
         onTookSelfie(selfie) {
             this.selfie = selfie;
+            console.log(selfie);
         },
         onDeleteSelfie() {
             this.selfie = null;
