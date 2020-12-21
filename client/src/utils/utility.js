@@ -22,3 +22,21 @@ export const getCookie = (cookieName) => {
 export const deleteCookie = (cookieName) => {
     setCookie(cookieName, '', -1);
 };
+
+export const setupCamera = async (videoElement) => {
+    // Create new stream from camera
+    const stream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+            facingMode: 'user',
+        },
+    });
+    // Set video elements source to created stream
+    videoElement.srcObject = stream;
+    // Return promise that resolves if video is loaded
+    return new Promise((resolve) => {
+        videoElement.onloadedmetadata = () => {
+            resolve(videoElement);
+        };
+    });
+}

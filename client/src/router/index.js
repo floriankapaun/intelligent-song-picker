@@ -3,7 +3,6 @@ import { createWebHistory, createRouter } from 'vue-router';
 import { getCookie } from '@/utils/utility.js';
 
 const Home = () => import(/* webpackChunkName: "home" */ '@/views/Home.vue');
-const Photo = () => import(/* webpackChunkName: "group-authenticated" */ '@/views/Photo.vue');
 const Main = () => import(/* webpackChunkName: "group-authenticated" */ '@/views/Main.vue');
 const About = () => import(/* webpackChunkName: "about" */ '@/views/About.vue');
 const Imprint = () => import(/* webpackChunkName: "group-else" */ '@/views/Imprint.vue');
@@ -18,14 +17,6 @@ const routes = [
         meta: {
             // makes the page only available to not authenticated users
             guest: true,
-        }
-    },
-    {
-        path: '/take-a-picture',
-        name: 'photo',
-        component: Photo,
-        meta: {
-            requiresAuth: true
         }
     },
     {
