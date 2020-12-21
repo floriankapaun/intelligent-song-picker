@@ -9,6 +9,8 @@
 
 <script>
 import imageWorker from '@/worker/image/index.js';
+import spotifyWorker from '@/worker/spotify/index.js';
+import { spotifyController } from '@/utils/SpotifyController.js';
 
 export default {
     props: {
@@ -25,8 +27,14 @@ export default {
         },
     },
     mounted() {
-        imageWorker.worker.onmessage = event => {
+        spotifyWorker.worker.onmessage = (event) => {
             console.log(event.data);
+        };
+        imageWorker.worker.onmessage = (event) => {
+            spotifyWorker.send({
+                accessToken: spotifyController.accessToken,
+                imageData: event.data,
+            });
         };
         imageWorker.send(this.selfie);
     },

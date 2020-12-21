@@ -6,6 +6,7 @@
 <script>
 import TakeSelfie from '@/components/TakeSelfie.vue';
 import Player from '@/components/Player.vue';
+import { spotifyController } from '@/utils/SpotifyController.js';
 
 export default {
     data() {
@@ -20,46 +21,19 @@ export default {
     methods: {
         onTookSelfie(selfie) {
             this.selfie = selfie;
-            console.log(selfie);
         },
         onDeleteSelfie() {
             this.selfie = null;
         },
+        startPlayback() {
+            spotifyController.play();
+        },
+        stopPlayback() {
+            spotifyController.pause();
+        },
+        refreshAccessToken() {
+            spotifyController.refreshAccessToken();
+        },
     },
 };
-
-// import { spotifyController } from '@/utils/SpotifyController.js';
-// import { faceLandmarksDetection } from '@/utils/FaceLandmarksDetection.js';
-// import { deleteCookie } from '@/utils/utility.js';
-
-// export default {
-//     mounted() {
-//         faceLandmarksDetection.init(this.$refs.video, this.$refs.canvas);
-//     },
-//     computed: {
-//         userName() {
-//             return spotifyController.user && spotifyController.user.display_name
-//                 ? spotifyController.user.display_name
-//                 : null;
-//         }
-//     },
-//     methods: {
-//         startPlayback() {
-//             spotifyController.play();
-//         },
-//         stopPlayback() {
-//             spotifyController.pause();
-//         },
-//         logout() {
-//             deleteCookie('SPOTIFY_ACCESS_TOKEN');
-//             deleteCookie('SPOTIFY_REFRESH_TOKEN');
-//             deleteCookie('SPOTIFY_AUTH_ERROR');
-//             // Cause page reload
-//             this.$router.go();
-//         },
-//         refreshAccessToken() {
-//             spotifyController.refreshAccessToken();
-//         },
-//     },
-// };
 </script>

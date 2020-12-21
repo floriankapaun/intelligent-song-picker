@@ -30,7 +30,6 @@ export default {
         canvas.width = videoWidth;
         canvas.height = videoHeight;
         context.drawImage(video, 0, 0, videoWidth, videoHeight);
-        console.log();
         this.$emit('tookSelfie', context.getImageData(0, 0, videoWidth, videoHeight));
       }
     },
