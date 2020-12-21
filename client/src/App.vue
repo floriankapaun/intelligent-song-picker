@@ -1,6 +1,14 @@
 <template>
-    <router-link to="/">Home</router-link>
-    <router-link to="/about">About</router-link>
-    <router-link to="/app">App</router-link>
+    <component-header />
     <router-view />
 </template>
+
+<script>
+import ComponentHeader from '@/components/Header.vue';
+
+export default {
+    components: {
+        ComponentHeader,
+    },
+}
+</script>
