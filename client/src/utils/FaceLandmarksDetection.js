@@ -5,17 +5,20 @@ const tf = import(/* webpackPreload: true */ '@tensorflow/tfjs-core');
 import config from '../config/config.js';
 
 class FaceLandmarksDetection {
-    constructor(input, output) {
-        this.VIDEO_WIDTH = 500;
+    constructor() {
+        this.VIDEO_WIDTH = 200;
         this.VIDEO_HEIGHT = this.VIDEO_WIDTH;
         this.TF_BACKEND = 'webgl';
-        this.input = input;
-        this.output = output;
+        this.sawFirstFace = false;
+        this.input = undefined;
+        this.output = undefined;
         this.model = undefined;
         this.ctx = undefined;
     }
 
-    async init() {
+    async init(input, output) {
+        this.input = input;
+        this.output = output;
         await tfjsBackendWebgl;
         await (await tf).setBackend(this.TF_BACKEND);
         // Start webcam
@@ -27,9 +30,6 @@ class FaceLandmarksDetection {
         // Style canvas
         this.output.width = this.VIDEO_WIDTH;
         this.output.height = this.VIDEO_HEIGHT;
-        // NECESSARY?
-        // const canvasContainer = document.querySelector('.canvas-wrapper');
-        // canvasContainer.style = `width: ${videoWidth}px; height: ${videoHeight}px`;
         // Setup context
         this.ctx = this.output.getContext('2d');
         this.ctx.translate(this.output.width, 0);
@@ -69,29 +69,34 @@ class FaceLandmarksDetection {
         const predictions = await this.model.estimateFaces({
             input: this.input,
         });
+        
         // Plott the input video as canvas background
         // Clip the image and position the clipped part on the canvas
         // ctx.drawImage(img,sx,sy,swidth,sheight,x,y,width,height)
-        this.ctx.drawImage(
-            this.input,
-            0, 0, this.VIDEO_WIDTH, this.VIDEO_HEIGHT,
-            0, 0, this.output.width, this.output.height,
-        );
+        // this.ctx.drawImage(
+        //     this.input,
+        //     0, 0, this.VIDEO_WIDTH, this.VIDEO_HEIGHT,
+        //     0, 0, this.output.width, this.output.height,
+        // );
+
         // Plott the prediction onto the context
-        if (predictions.length > 0) {
-            for (const prediction of predictions) {
-                const keypoints = prediction.scaledMesh;
-                for (const keypoint of keypoints) {
-                    const [x, y] = keypoint;
-                    this.ctx.beginPath();
-                    this.ctx.arc(x, y, 1 /* radius */, 0, 2 * Math.PI);
-                    this.ctx.fill();
-                }
-            }
-        }
+        // if (predictions.length > 0) {
+        //     for (const prediction of predictions) {
+        //         const keypoints = prediction.scaledMesh;
+        //         for (const keypoint of keypoints) {
+        //             const [x, y] = keypoint;
+        //             this.ctx.beginPath();
+        //             this.ctx.arc(x, y, 1 /* radius */, 0, 2 * Math.PI);
+        //             this.ctx.fill();
+        //         }
+        //     }
+        // }
+
+        // Has there ever been a face detected?
+        if (!this.sawFirstFace && predictions.length > 0) this.sawFirstFace = true;
         // Render the next prediction
         requestAnimationFrame(() => this.renderPrediction());
     }
 }
 
-export const faceLandmarksDetection = new FaceLandmarksDetection(config.videoDOM, config.canvasDOM);
+export const faceLandmarksDetection = new FaceLandmarksDetection();

@@ -5,8 +5,8 @@
     <button type="button" @click="logout">logout</button>
     <p><button type="button" @click="refreshAccessToken()">Refresh Token</button></p>
     <div class="canvas-wrapper">
-        <canvas id="output"></canvas>
-        <video id="video" playsinline></video>
+        <canvas id="output" ref="canvas"></canvas>
+        <video id="video" ref="video" playsinline></video>
     </div>
 </template>
 
@@ -16,11 +16,8 @@ import { faceLandmarksDetection } from '@/utils/FaceLandmarksDetection.js';
 import { deleteCookie } from '@/utils/utility.js';
 
 export default {
-    created() {
-        // faceLandmarksDetection.init();
-
-        // window.addEventListener('load', router);
-        // window.addEventListener('hashchange', router);
+    mounted() {
+        faceLandmarksDetection.init(this.$refs.video, this.$refs.canvas);
     },
     computed: {
         userName() {
