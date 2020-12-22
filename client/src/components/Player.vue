@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="fullscreen-background_wrapper">
-            <img :src="getSelfieURL" :class="selfie ? 'transition-in' : 'hidden'" alt="your selfie">
+        <div class="fullscreen-background_wrapper" :class="selfie ? 'transition-in' : 'hidden'">
+            <img :src="getSelfieURL" alt="your selfie">
         </div>
         <button @click="$emit('deleteSelfie')">New selfie</button>
     </div>

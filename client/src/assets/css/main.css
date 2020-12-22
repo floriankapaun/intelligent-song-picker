@@ -92,3 +92,15 @@ button:focus {
     height: 100%;
     z-index: -1;
 }
+
+.fullscreen-background_wrapper video,
+.fullscreen-background_wrapper img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+}
