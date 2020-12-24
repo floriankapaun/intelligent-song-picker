@@ -1,11 +1,11 @@
 <template>
     <take-selfie v-if="!selfie" @tookSelfie="onTookSelfie" />
-    <player v-else :selfie="selfie" @deleteSelfie="onDeleteSelfie" />
+    <recommendation v-else :selfie="selfie" @deleteSelfie="onDeleteSelfie" />
 </template>
 
 <script>
 import TakeSelfie from '@/components/TakeSelfie.vue';
-import Player from '@/components/Player.vue';
+import Recommendation from '@/components/Recommendation.vue';
 import { spotifyController } from '@/utils/SpotifyController.js';
 
 export default {
@@ -16,7 +16,7 @@ export default {
     },
     components: {
         TakeSelfie,
-        Player,
+        Recommendation,
     },
     methods: {
         onTookSelfie(selfie) {

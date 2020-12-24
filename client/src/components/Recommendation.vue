@@ -4,17 +4,22 @@
             <img :src="getSelfieURL" alt="your selfie">
         </div>
         <button @click="$emit('deleteSelfie')">New selfie</button>
+        <spotify-player ref="spotifyPlayer"></spotify-player>
     </div>
 </template>
 
 <script>
+import SpotifyPlayer from '@/components/SpotifyPlayer.vue';
+import { spotifyController } from '@/utils/SpotifyController.js';
 import imageWorker from '@/worker/image/index.js';
 import spotifyWorker from '@/worker/spotify/index.js';
-import { spotifyController } from '@/utils/SpotifyController.js';
 
 export default {
     props: {
         selfie: undefined,
+    },
+    components: {
+        SpotifyPlayer
     },
     computed: {
         getSelfieURL() {
@@ -28,7 +33,15 @@ export default {
     },
     mounted() {
         spotifyWorker.worker.onmessage = (event) => {
-            console.log(event.data);
+            const { error, result } = event.data;
+            if (error) {
+                const { status, message } = error;
+                console.error(`${status}${status ? ': ' : null}${message}`);
+            } else if (result && Object.keys(result).length > 0) {
+                this.$refs.spotifyPlayer.play(result);
+            } else {
+                console.error('Result from Spotify Worker is empty.');
+            }
         };
         imageWorker.worker.onmessage = (event) => {
             spotifyWorker.send({

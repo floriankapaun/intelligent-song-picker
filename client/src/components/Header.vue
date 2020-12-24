@@ -17,6 +17,7 @@ export default {
             deleteCookie('SPOTIFY_AUTH_ERROR');
             // Cause page reload
             this.$router.go();
+            // TODO: Trigger player.disconnect() on logout to remove the spotify player instance from account
         },
     },
 };
