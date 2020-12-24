@@ -3,8 +3,7 @@
         <div class="fullscreen-background_wrapper" :class="selfie ? 'transition-in' : 'hidden'">
             <img :src="getSelfieURL" alt="your selfie">
         </div>
-        <button @click="$emit('deleteSelfie')">New selfie</button>
-        <spotify-player ref="spotifyPlayer"></spotify-player>
+        <spotify-player ref="spotifyPlayer" @deleteSelfie="$emit('deleteSelfie')"></spotify-player>
     </div>
 </template>
 

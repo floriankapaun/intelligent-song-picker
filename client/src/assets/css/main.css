@@ -27,11 +27,20 @@ body {
 button {
     font-family: inherit;
     font-size: inherit;
+    padding: 0.7rem 1.5rem 0.75rem;
+    color: inherit;
+    background-color: inherit;
+    border: none;
+    transition: 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.btn {
+    
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    padding: 0.7rem 1.5rem 0.75rem;
     background-color: var(--green);
     color: var(--ink);
     border: none;
@@ -40,10 +49,10 @@ button {
     transition: 0.1s ease-in-out;
 }
 
-a:hover > button,
-a:focus > button,
-button:hover,
-button:focus {
+a:hover > .btn,
+a:focus > .btn,
+.btn:hover,
+.btn:focus {
     background-color: var(--green_hover);
 }
 
@@ -54,12 +63,15 @@ button:focus {
     margin-right: auto;
 }
 
-.icon-spotify {
+.icon {
     display: inline-block;
     width: 100%;
     max-width: 1.5em;
     height: auto;
     fill: var(--ink);
+}
+
+.icon-spotify {
     margin-right: 0.6em;
 }
 
@@ -103,4 +115,27 @@ button:focus {
     width: auto;
     height: auto;
     transform: translate(-50%, -50%);
+}
+
+.flex { display: flex; }
+
+.flex-row { flex-direction: row; }
+
+.justify-between { justify-content: space-between; }
+
+.p4 { padding: 1rem; }
+
+.p6 { padding: 1.5rem; }
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    -webkit-clip-path: inset(50%);
+    clip-path: inset(50%);
+    border: 0;
 }

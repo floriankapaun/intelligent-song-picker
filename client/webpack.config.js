@@ -37,6 +37,10 @@ module.exports = (env) => {
                     ],
                 },
                 {
+                    test: /\.svg$/i,
+                    use: 'raw-loader',
+                  },
+                {
                     test: /\.vue$/,
                     loader: "vue-loader",
                 },

@@ -55,28 +55,6 @@ class SpotifyController {
             })
             .catch((error) => console.error(error));
     }
-
-    async play() {
-        return fetch('https://api.spotify.com/v1/me/player/play', {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${this.accessToken}`,
-            }
-        })
-            .then((response) => console.log(response))
-            .catch((error) => console.error(error));
-    }
-
-    async pause() {
-        return fetch('https://api.spotify.com/v1/me/player/pause', {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${this.accessToken}`,
-            }
-        })
-            .then((response) => console.log(response))
-            .catch((error) => console.error(error));
-    }
 }
 
 export const spotifyController = new SpotifyController();
