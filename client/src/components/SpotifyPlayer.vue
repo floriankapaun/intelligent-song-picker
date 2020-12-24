@@ -1,5 +1,11 @@
 <template>
-    <div>PLAYER</div>
+    <article>
+        <section v-if="this.currentPlaying && this.currentPlaying.item">
+            <h2>{{ getTrackName }}</h2>
+            <h3>{{ getArtistsNames }}</h3>
+            <div class="progress-bar" :style="{ '--progress': getCurrentPlayingProgress }"></div>
+        </section>
+    </article>
 </template>
 
 <script>
@@ -9,6 +15,7 @@ import { spotifyController } from '@/utils/SpotifyController.js';
 export default {
     data() {
         return {
+            currentPlaying: undefined,
             player: undefined,
             playerState: undefined,
             playerConnected: undefined,
@@ -58,7 +65,7 @@ export default {
                 },
             },
         }) {
-            getOAuthToken(access_token => {
+            getOAuthToken((access_token) => {
                 fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
                     method: 'PUT',
                     body: JSON.stringify({ uris: [spotifyURI] }),
@@ -66,7 +73,13 @@ export default {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${access_token}`,
                     },
-                });
+                })
+                    .then((response) => {
+                        if (response.status === 204) {
+                            this.getCurrentPlaying();
+                        }
+                    })
+                    .catch((error) => console.error(error));
             });
         },
         play(track) {
@@ -77,6 +90,57 @@ export default {
                 });
             } else {
                 // TODO: Put Track in queue until player is ready and play afterwards
+            }
+        },
+        getCurrentPlaying() {
+            fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+                headers: {
+                    'Authorization': `Bearer ${spotifyController.accessToken}`,
+                }
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    this.currentPlaying = data;
+                    this.updateCurrentPlayingProgress();
+                })
+                .catch((error) => console.error(error));
+        },
+        updateCurrentPlayingProgress() {
+            if (!this.playerState.paused) {
+                console.log(this.currentPlaying.progress_ms);
+                this.currentPlaying.progress_ms += 1000;
+                setTimeout(() => { this.updateCurrentPlayingProgress(); }, 1000);
+            }
+        },
+    },
+    computed: {
+        getArtistsNames() {
+            if (this.currentPlaying && this.currentPlaying.item && this.currentPlaying.item.artists) {
+                let artistsNames = '';
+                for (const artist of this.currentPlaying.item.artists) {
+                    artistsNames += `${artist.name}, `;
+                }
+                // Remove the last ', '
+                return artistsNames.slice(0, -2);
+            } else {
+                return null;
+            }
+        },
+        getTrackName() {
+            if (this.currentPlaying && this.currentPlaying.item && this.currentPlaying.item.name) {
+                return this.currentPlaying.item.name;
+            } else {
+                return null;
+            }
+        },
+        getCurrentPlayingProgress() {
+            if (this.currentPlaying && "progress_ms" in this.currentPlaying && this.currentPlaying.item) {
+                const duration_ms = this.currentPlaying.item.duration_ms;
+                const progress_ms = this.currentPlaying.progress_ms;
+                return `${(progress_ms / duration_ms) * 100}%`;
+            } else {
+                return null;
             }
         },
     },
@@ -90,3 +154,23 @@ export default {
     },
 }
 </script>
+
+<style>
+.progress-bar {
+    --progress: 0%;
+    position: relative;
+    width: 100%;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.progress-bar:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--progress);
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+</style>
