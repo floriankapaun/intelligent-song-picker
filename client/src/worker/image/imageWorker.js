@@ -9,24 +9,56 @@ let selfie = undefined;
 addEventListener('message', async (event) => {
     selfie = event.data;
 
-    const numberOfPixels = selfie.width * selfie.height;
+    const pixelLuminance = [];
 
-    let r = 0;
-    let g = 0;
-    let b = 0;
+    const rg = [];
+    const yb = [];
 
     for (let x = 0; x < selfie.width; x++) {
         for (let y = 0; y < selfie.height; y++) {
-            r += getPixelValue(x, y, R_OFFSET);
-            g += getPixelValue(x, y, G_OFFSET);
-            b += getPixelValue(x, y, B_OFFSET);
+            const r = getPixelValue(x, y, R_OFFSET);
+            const g = getPixelValue(x, y, G_OFFSET);
+            const b = getPixelValue(x, y, B_OFFSET);
+            const luminance = getLuminance([r, g, b]);
+            pixelLuminance.push(byteToUnitInterval(luminance));
+
+            rg.push(byteToUnitInterval(Math.abs(r - g)));
+            yb.push(byteToUnitInterval(Math.abs(0.5 * (r + g) - b)));
         }
     }
 
-    const brightness = byteToPercentage((r + g + b) / (numberOfPixels * 3));
+    const selfieBrightness = getMean(pixelLuminance);
 
+    // Remains pretty small (for most selfies below 0.3)
+    const selfieStandardDeviation = getStandardDeviation(pixelLuminance);
+
+	// Compute the mean and standard deviation of both 'rg' and 'yb'
+    const rgMean = getMean(rg);
+    const ybMean = getMean(yb);
+    const rgStandardDeviation = getStandardDeviation(rg);
+    const ybStandardDeviation = getStandardDeviation(yb);
+    // Combine the mean and standard deviations
+    const rootStandardDeviation = Math.sqrt(Math.pow(rgStandardDeviation, 2) + Math.pow(ybStandardDeviation, 2));
+    const rootMean = Math.sqrt(Math.pow(rgMean, 2) + Math.pow(ybMean, 2));
+	// Calculate the "colorfulness"
+    const selfieColorfulness = rootStandardDeviation + (0.3 * rootMean);
+
+    /**
+     * Has to return values that get mapped to the following audio parameters:
+     * 
+     * danceability: headphonesDetected
+     * energy: dynamic
+     * mode: brightness
+     * speechiness: percentageOfType
+     * acousticness: percentageOfWood? saturation (hsl)?
+     * instumentalness: colorfulness?
+     * liveness: multipleFacesDetected
+     * valence: detectedEmotion
+     */
     postMessage({
-        brightness,
+        brightness: selfieBrightness,
+        colorfulness: selfieColorfulness,
+        contrast: selfieStandardDeviation,
     });
 });
 
@@ -41,7 +73,8 @@ const getPixelIndex = (x, y) => (x + y * selfie.width) * 4;
 // Ensure value remain in RGB, 0 - 255
 const clamp = (value) => Math.max(0, Math.min(Math.floor(value), 255));
 
-const byteToPercentage = (byteValue) => byteValue / 256 * 100;
+// Converts Byte (0 - 255) to UnitInterval (0 - 1)
+const byteToUnitInterval = (byteValue) => byteValue / 256;
 
 const getPixelValue = (x, y, offset) => {
     const index = getPixelIndex(x, y) + offset;
@@ -53,3 +86,12 @@ const setPixelValue = (x, y, offset, value) => {
     const currentValue = selfie.data[index];
     selfie.data[index] = clamp(currentValue + value);
 };
+
+const getMean = (array) => (array.reduce((a, b) => a + b)) / array.length;
+
+const getStandardDeviation = (array) => {
+    const mean = getMean(array);
+    return Math.sqrt(getMean(array.map((x) => Math.pow(x - mean, 2))));
+};
+
+const getLuminance = (array) => (array[0] + array[0] + array[1] + array[2] + array[2] + array[2]) / 6;

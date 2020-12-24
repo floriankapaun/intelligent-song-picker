@@ -4,19 +4,17 @@ addEventListener('message', async (event) => {
     // Make the accessToken globally accessible inside the worker
     accessToken = event.data.accessToken;
 
+    const { imageData } = event.data;
+
     const optimalAudioFeatures = {
         // danceability: 0.808, // based on tempo, rhythm stability, beat strength, and overall regularity
-        energy: 0,
-        // key: 7,
-        // loudness: -12.733, // Values typical range between -60 and 0 db.
-        // mode: 1, // 1 (major) or 0 (minor)
+        energy: imageData.contrast,
+        mode: Math.round(imageData.brightness), // 1 (major) or 0 (minor)
         speechiness: 0.66, // Values between 0.33 and 0.66 describe tracks that may contain both music and speech. Above 0.66 is probably only speech. Below 0.33 no speech.
         // acousticness: 0.00187, // 0 (non-acoustic) - 1 (acoustic)
-        instrumentalness: 0, // tracks above 0.5 are treated as intrumentals with increasing confidence towards 1.0
+        instrumentalness: imageData.colorfulness, // tracks above 0.5 are treated as intrumentals with increasing confidence towards 1.0
         liveness: 0, // Detects the presence of an audience in the recording. Above 0.8 is probably live.
         valence: 0, // Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric)
-        // tempo: 120.00, // bpm
-        // duration_ms: 497493,
     };
 
     const result = await getTrackReommendationFromSpotify(optimalAudioFeatures);
@@ -58,7 +56,6 @@ const getRecommendationsBasedOn = (track) => {
 /**
  * Utilities
  */
-const toSquare = (arg) => arg * arg;
 
 const getBestFittingTrack = (tracks, receivedTracksAudioFeatures, optimalAudioFeatures) => {
     // audioFeatures[i] contains the audio feature info for tracks[i]
@@ -70,7 +67,7 @@ const getBestFittingTrack = (tracks, receivedTracksAudioFeatures, optimalAudioFe
     const errors = audioFeatures.map((features) => {
         let error = [];
         for (const [key, optimalValue] of Object.entries(optimalAudioFeatures)) {
-            error.push(toSquare(features[key] - optimalValue));
+            error.push(Math.pow(features[key] - optimalValue, 2));
         }
         return error.reduce((previous, current) => previous + current);
     })
