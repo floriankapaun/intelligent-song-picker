@@ -1,0 +1,21 @@
+:root {
+
+    --font-family: 'Manrope', sans-serif;
+
+    --font-size_xs: 0.73rem;
+    --font-size_s: 0.9rem;
+    --font-size_m: 1rem;
+    --font-size_xl: 2.1rem;
+
+    --font-weight_m: 600;
+
+    --line-height_m: 1.5;
+    --line-height_xl: 1.15;
+
+    --paper: rgba(24, 24, 24, 1);
+    --ink: rgba(255, 255, 255, 1);
+    --ink_light: rgba(255, 255, 255, 0.45);
+    --ink_lightest: rgba(255, 255, 255, 0.05);
+
+    --easing: ease-in-out;
+}

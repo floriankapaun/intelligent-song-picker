@@ -46,12 +46,12 @@ export default {
             playerReady: undefined,
             deviceId: undefined,
             icons: {
-                photo: require('@/assets/img/photo_camera-24px.svg').default,
-                skipPrevious: require('@/assets/img/skip_previous-24px.svg').default,
-                play: require('@/assets/img/play_arrow-24px.svg').default,
-                pause: require('@/assets/img/pause-24px.svg').default,
-                skipNext: require('@/assets/img/skip_next-24px.svg').default,
-                favorite: require('@/assets/img/favorite-24px.svg').default,
+                photo: require('@/assets/img/icons/photo_camera-24px.svg').default,
+                skipPrevious: require('@/assets/img/icons/skip_previous-24px.svg').default,
+                play: require('@/assets/img/icons/play_arrow-24px.svg').default,
+                pause: require('@/assets/img/icons/pause-24px.svg').default,
+                skipNext: require('@/assets/img/icons/skip_next-24px.svg').default,
+                favorite: require('@/assets/img/icons/favorite-24px.svg').default,
             }
         };
     },

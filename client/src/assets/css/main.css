@@ -1,30 +1,15 @@
-* { box-sizing: border-box; }
-
-:root {
-    font-size: 115%;
-    --green: #1db954;
-    --green_hover: #1ED760;
-    --paper: #131313;
-    --ink: #ffffff;
-    --faded: #888;
-}
+@import 'normalize.css';
+@import 'variables.css';
+@import 'typography.css';
+@import 'elements.css';
+@import 'utilities.css';
 
 body {
-    font-family: sans-serif;
-    font-size: 1rem;
-    line-height: 1.5;
-    font-feature-settings: "onum" 1, "pnum" 1, "kern" 1, "ss01" 1;
-    font-feature-settings: "kern" 1;
-    font-kerning: normal; 
-    letter-spacing: 0.015em; 
-    word-spacing: 0.001em; 
-    -webkit-font-smoothing: antialiased; /* Chrome, Safari */ 
-    -moz-osx-font-smoothing: grayscale; /* Firefox */ 
     color: var(--ink);
     background-color: var(--paper);
 }
 
-button {
+/* button {
     font-family: inherit;
     font-size: inherit;
     padding: 0.7rem 1.5rem 0.75rem;
@@ -35,19 +20,6 @@ button {
     cursor: pointer;
 }
 
-.btn {
-    
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: var(--green);
-    color: var(--ink);
-    border: none;
-    border-radius: 5em;
-    cursor: pointer;
-    transition: 0.1s ease-in-out;
-}
 
 a:hover > .btn,
 a:focus > .btn,
@@ -63,38 +35,9 @@ a:focus > .btn,
     margin-right: auto;
 }
 
-.icon {
-    display: inline-block;
-    width: 100%;
-    max-width: 1.5em;
-    height: auto;
-    fill: var(--ink);
-}
-
 .icon-spotify {
     margin-right: 0.6em;
-}
-
-.fine-print {
-    font-size: 0.6rem;
-    color: var(--faded);
-}
-
-.text-center {
-    text-align: center;
-}
-
-.inline-block {
-    display: inline-block;
-}
-
-.no-decoration {
-    text-decoration: none;
-}
-
-.hidden {
-    display: none;
-}
+} */
 
 .fullscreen-background_wrapper {
     position: fixed;
@@ -115,27 +58,4 @@ a:focus > .btn,
     width: auto;
     height: auto;
     transform: translate(-50%, -50%);
-}
-
-.flex { display: flex; }
-
-.flex-row { flex-direction: row; }
-
-.justify-between { justify-content: space-between; }
-
-.p4 { padding: 1rem; }
-
-.p6 { padding: 1.5rem; }
-
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
-    white-space: nowrap;
-    -webkit-clip-path: inset(50%);
-    clip-path: inset(50%);
-    border: 0;
 }

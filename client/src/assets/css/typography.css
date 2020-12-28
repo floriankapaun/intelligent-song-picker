@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: var(--font-weight_m);
+    font-display: swap;
+    src: url('../fonts/Manrope.ttf') format('truetype'),
+         url('../fonts/static/Manrope-SemiBold.ttf') format('truetype');
+}
+
+:root { font-size: 115%; }
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size_m);
+    font-weight: var(--font-weight_m);
+    line-height: var(--line-height_m);
+    font-variation-settings: "wght" var(--font-weight_m);
+    font-feature-settings: "onum" 1, "pnum" 1, "kern" 1, "ss01" 1;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal; 
+    letter-spacing: 0.015em; 
+    word-spacing: 0.001em; 
+    -webkit-font-smoothing: antialiased; /* Chrome, Safari */ 
+    -moz-osx-font-smoothing: grayscale; /* Firefox */ 
+}
+
+h1 {
+    font-size: var(--font-size_xl);
+    line-height: var(--line-height_xl);
+}
