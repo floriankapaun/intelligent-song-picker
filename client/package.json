@@ -16,6 +16,7 @@
     "@tensorflow/tfjs-converter": "2.4.0",
     "@tensorflow/tfjs-core": "2.4.0",
     "core-js": "^3.8.0",
+    "focus-trap": "^6.2.3",
     "vue": "^3.0.3",
     "vue-router": "^4.0.0-rc.5"
   },

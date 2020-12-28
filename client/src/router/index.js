@@ -5,6 +5,7 @@ import { getCookie } from '@/utils/utility.js';
 const Home = () => import(/* webpackChunkName: "home" */ '@/views/Home.vue');
 const Main = () => import(/* webpackChunkName: "group-authenticated" */ '@/views/Main.vue');
 const About = () => import(/* webpackChunkName: "about" */ '@/views/About.vue');
+const Logout = () => import(/* webpackChunkName: "group-else" */ '@/views/Logout.vue');
 const Imprint = () => import(/* webpackChunkName: "group-else" */ '@/views/Imprint.vue');
 const DataPrivacy = () => import(/* webpackChunkName: "group-else" */ '@/views/DataPrivacy.vue');
 const NotFound = () => import(/* webpackChunkName: "group-else" */ '@/views/NotFound.vue');
@@ -31,6 +32,14 @@ const routes = [
         path: '/about',
         name: 'about',
         component: About,
+    },
+    {
+        path: '/logout',
+        name: 'logout',
+        component: Logout,
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/imprint',
