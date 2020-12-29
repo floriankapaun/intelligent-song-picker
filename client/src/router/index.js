@@ -1,6 +1,6 @@
 import { createWebHistory, createRouter } from 'vue-router';
 
-import { getCookie } from '@/utils/utility.js';
+import { getCookie } from '@/utils/index.js';
 
 const Home = () => import(/* webpackChunkName: "home" */ '@/views/Home.vue');
 const Main = () => import(/* webpackChunkName: "group-authenticated" */ '@/views/Main.vue');

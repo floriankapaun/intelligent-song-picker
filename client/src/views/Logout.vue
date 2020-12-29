@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { deleteCookie } from '@/utils/utility.js';
+import { deleteCookie } from '@/utils/index.js';
 
 export default {
     methods: {

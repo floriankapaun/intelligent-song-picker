@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import c from '@/config/config.js';
+import c from '@/config/index.js';
 
 export default {
     props: {

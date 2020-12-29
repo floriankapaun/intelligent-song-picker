@@ -1,4 +1,4 @@
-import c from '@/config/config.js';
+import c from '@/config/index.js';
 import spotifyAuth from '@/utils/spotifyAuth.js';
 
 class SpotifyPlayer {

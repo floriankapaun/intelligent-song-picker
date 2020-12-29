@@ -1,5 +1,5 @@
-import c from '../config/config.js';
-import { getCookie } from './utility.js';
+import c from '@/config/index.js';
+import { getCookie } from '@/utils/index.js';
 
 class SpotifyAuth {
     constructor() {

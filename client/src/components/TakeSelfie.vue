@@ -42,7 +42,7 @@
 
 <script>
 import { createFocusTrap } from 'focus-trap';
-import { setupCamera } from '@/utils/utility';
+import { setupCamera } from '@/utils/index.js';
 
 export default {
   data() {
