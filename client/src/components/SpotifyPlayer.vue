@@ -34,7 +34,7 @@
 
 <script>
 import c from '@/config/config.js';
-import { spotifyController } from '@/utils/SpotifyController.js';
+import spotifyAuth from '@/utils/spotifyAuth.js';
 
 export default {
     props: {
@@ -62,7 +62,7 @@ export default {
         onSpotifyWebPlaybackSDKReady() {
             const player = new Spotify.Player({
                 name: c.APP_NAME,
-                getOAuthToken: cb => { cb(spotifyController.accessToken); },
+                getOAuthToken: cb => { cb(spotifyAuth.accessToken); },
             });
             this.player = player;
 
@@ -130,7 +130,7 @@ export default {
         getCurrentPlaying() {
             fetch('https://api.spotify.com/v1/me/player/currently-playing', {
                 headers: {
-                    'Authorization': `Bearer ${spotifyController.accessToken}`,
+                    'Authorization': `Bearer ${spotifyAuth.accessToken}`,
                 }
             })
                 .then((response) => response.json())
@@ -150,7 +150,7 @@ export default {
             return fetch('https://api.spotify.com/v1/me/player/play', {
                 method: 'PUT',
                 headers: {
-                    'Authorization': `Bearer ${spotifyController.accessToken}`,
+                    'Authorization': `Bearer ${spotifyAuth.accessToken}`,
                 }
             })
                 .then((response) => console.log(response))
@@ -160,7 +160,7 @@ export default {
             return fetch('https://api.spotify.com/v1/me/player/pause', {
                 method: 'PUT',
                 headers: {
-                    'Authorization': `Bearer ${spotifyController.accessToken}`,
+                    'Authorization': `Bearer ${spotifyAuth.accessToken}`,
                 }
             })
                 .then((response) => console.log(response))

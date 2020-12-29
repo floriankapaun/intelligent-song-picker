@@ -1,7 +1,7 @@
 import c from '../config/config.js';
 import { getCookie } from './utility.js';
 
-class SpotifyController {
+class SpotifyAuth {
     constructor() {
         this.accessToken = undefined;
         this.refreshToken = undefined;
@@ -57,4 +57,4 @@ class SpotifyController {
     }
 }
 
-export const spotifyController = new SpotifyController();
+export default new SpotifyAuth();

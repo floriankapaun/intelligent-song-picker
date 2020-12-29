@@ -9,7 +9,7 @@
 
 <script>
 import SpotifyPlayer from '@/components/SpotifyPlayer.vue';
-import { spotifyController } from '@/utils/SpotifyController.js';
+import spotifyAuth from '@/utils/spotifyAuth.js';
 import spotifyWorker from '@/worker/spotify/index.js';
 import imageWorker from '@/worker/image/index.js';
 
@@ -43,7 +43,7 @@ export default {
         // Setup listener for imageWorker
         imageWorker.worker.onmessage = (event) => {
             spotifyWorker.send({
-                accessToken: spotifyController.accessToken,
+                accessToken: spotifyAuth.accessToken,
                 imageData: event.data,
             });
         };
