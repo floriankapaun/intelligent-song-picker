@@ -35,6 +35,26 @@
 
 .btn-icon-only .icon { margin-right: unset; }
 
+.modal {
+    --ink: #181818;
+    --paper: #fff;
+    position: fixed;
+    top: 1rem;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    color: var(--ink);
+    background-color: var(--paper);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    transform: translateY(100%);
+    transition: 0.1s var(--easing);
+}
+
+.modal.open {
+    transform: translateY(0);
+}
+
 .sr-only {
     position: absolute;
     width: 1px;

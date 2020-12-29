@@ -10,7 +10,7 @@
         </div>
         <p class="text-xs color-ink_light mt2">Starting Camera</p>
       </section>
-      <video ref ="video" autoplay></video>
+      <video ref ="video" tabindex="-1" autoplay></video>
     </article>
     <!-- <button @click="this.$refs.video.play()">Play Video</button> -->
 
@@ -20,24 +20,40 @@
         <span id="take-selfie-icon" class="icon" v-html="icons.takePhoto"></span>
         <span class="sr-only"> Take a Selfie</span>
       </button>
-      <button id="info-button" type="button" class="btn btn-icon-only p0" @click="openInfoModal">
+      <button id="info-button" ref="openInfoModal" type="button" class="btn btn-icon-only p0" aria-label="Open Info Modal" :aria-expanded="isInfoModalOpen" @click="openInfoModal">
         <span class="icon" v-html="icons.info"></span>
         <span class="sr-only"> Info</span>
       </button>
+    </article>
+
+    <article ref="infoModal" class="modal p4" :class="isInfoModalOpen ? 'open' : null" aria-label="Info Modal content">
+      <section class="flex flex-row justify-between mb8">
+        <button ref="closeInfoModal" class="btn btn-icon-only p0" aria-label="Hide Info Modal" :tabindex="isInfoModalOpen ? 0 : -1" @click="closeInfoModal">
+          <span class="sr-only">Close </span>
+          <span class="icon" v-html="icons.close"></span>
+        </button>
+        <h2 class="text-m">Take a Selfie</h2>
+        <span class="spacing-size_button"></span>
+      </section>
+      <p>Based on your photo, we will play the perfect song for you. Don't worry, the picture stays on your device. Click the photo button now to get started.</p>
     </article>
   </main>
 </template>
 
 <script>
+import { createFocusTrap } from 'focus-trap';
 import { setupCamera } from '@/utils/utility';
 
 export default {
   data() {
     return {
       selfie: undefined,
+      focusTrap: undefined,
+      isInfoModalOpen: false,
       icons: {
         takePhoto: require('@/assets/img/icons/take_photo-24px.svg').default,
         info: require('@/assets/img/icons/info-24px.svg').default,
+        close: require('@/assets/img/icons/close-24px.svg').default,
       }
     };
   },
@@ -55,9 +71,27 @@ export default {
         this.$emit('tookSelfie', context.getImageData(0, 0, videoWidth, videoHeight));
       }
     },
+    openInfoModal() {
+      this.isInfoModalOpen = true;
+      this.$nextTick(() => {
+        this.focusTrap.activate();
+        this.$refs.closeInfoModal.focus();
+      })
+    },
+    closeInfoModal() {
+      this.isInfoModalOpen = false;
+      this.focusTrap.deactivate();
+      this.$refs.openInfoModal.focus();
+    },
   },
   mounted() {
     setupCamera(this.$refs.video);
+    // Setup focus trap for info modal
+    this.focusTrap = createFocusTrap(this.$refs.infoModal, {
+      onDeactivate: () => {
+        if (this.isInfoModalOpen) this.closeInfoModal();
+      },
+    });
   },
 }
 </script>
