@@ -42,6 +42,8 @@ export default {
     },
     data() {
         return {
+            progressSimulationStart: undefined,
+            progressSimulation: undefined,
             playbackState: undefined,
             icons: {
                 photo: require('@/assets/img/icons/photo_camera-24px.svg').default,
@@ -69,8 +71,11 @@ export default {
         },
         updatePlayerProgress() {
             if (this.player && this.currentTrack && this.isPlaying) {
-                this.currentTrack.progress_ms += 1000;
-                setTimeout(() => { this.updatePlayerProgress(); }, 1000);
+                const difference = Date.now() - this.progressSimulationStart;
+                this.progressSimulationStart = Date.now();
+                this.currentTrack.progress_ms += difference;
+            } else {
+                clearInterval(this.progressSimulation);
             }
         },
         onPlayPause() {
@@ -78,7 +83,11 @@ export default {
             this.isPlaying ? this.player.pause() : this.player.play();
         },
         onNewSelfie() {
+            // Pause Spotify player
             if (this.player) this.player.pause();
+            // Reset progress simulation
+            clearInterval(this.progressSimulation);
+            // Emit the event
             this.$emit('deleteSelfie');
         },
     },
@@ -133,7 +142,12 @@ export default {
             this.playTrack(this.recommendedTrack);
         },
         playbackState() {
-            if (this.isPlaying) this.updatePlayerProgress();
+            if (this.isPlaying && !this.progressSimulation) {
+                this.progressSimulationStart = Date.now();
+                this.progressSimulation = setInterval(() => {
+                    this.updatePlayerProgress();
+                }, 1000);
+            }
         },
     },
     mounted() {
@@ -178,6 +192,7 @@ export default {
     width: 100%;
     height: 3px;
     background-color: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
 }
 
 .progress-bar:after {
