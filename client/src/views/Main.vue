@@ -1,17 +1,17 @@
 <template>
-    <take-selfie v-if="!selfie" @tookSelfie="onTookSelfie" />
-    <recommendation v-else :selfie="selfie" @deleteSelfie="onDeleteSelfie" />
+    <take-selfie v-if="!selfie && !selfieURL" @tookSelfie="onTookSelfie" />
+    <recommendation v-else :selfie="selfie" :selfieURL="selfieURL" @deleteSelfie="onDeleteSelfie" />
 </template>
 
 <script>
 import TakeSelfie from '@/components/TakeSelfie.vue';
 import Recommendation from '@/components/Recommendation.vue';
-import { spotifyController } from '@/utils/SpotifyController.js';
 
 export default {
     data() {
         return {
             selfie: undefined,
+            selfieURL: undefined,
         };
     },
     components: {
@@ -19,20 +19,13 @@ export default {
         Recommendation,
     },
     methods: {
-        onTookSelfie(selfie) {
-            this.selfie = selfie;
+        onTookSelfie(img, url) {
+            this.selfie = img;
+            this.selfieURL = url;
         },
         onDeleteSelfie() {
             this.selfie = null;
-        },
-        startPlayback() {
-            spotifyController.play();
-        },
-        stopPlayback() {
-            spotifyController.pause();
-        },
-        refreshAccessToken() {
-            spotifyController.refreshAccessToken();
+            this.selfieURL = null;
         },
     },
 };

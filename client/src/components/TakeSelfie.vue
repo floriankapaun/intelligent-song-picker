@@ -69,7 +69,9 @@ export default {
         canvas.width = videoWidth;
         canvas.height = videoHeight;
         context.drawImage(video, 0, 0, videoWidth, videoHeight);
-        this.$emit('tookSelfie', context.getImageData(0, 0, videoWidth, videoHeight));
+        const img = context.getImageData(0, 0, videoWidth, videoHeight);
+        const url = canvas.toDataURL('image/png');
+        this.$emit('tookSelfie', img, url);
       }
     },
     openInfoModal() {
