@@ -13,6 +13,11 @@
     transition: 0.1s var(--easing);
 }
 
+.btn:disabled {
+    --ink: var(--ink_light);
+    cursor: auto;
+}
+
 .btn-icon-only {
     border: none;
     background-color: transparent;

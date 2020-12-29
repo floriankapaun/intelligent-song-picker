@@ -10,13 +10,13 @@
         </div>
         <p class="text-xs color-ink_light mt2">Starting Camera</p>
       </section>
-      <video ref ="video" tabindex="-1" autoplay></video>
+      <video ref="video" tabindex="-1" autoplay></video>
     </article>
     <!-- <button @click="this.$refs.video.play()">Play Video</button> -->
 
     <article id="selfie-controls" class="flex flex-row justify-between p4">
       <span class="spacing-size_button"></span>
-      <button type="button" class="btn btn-icon-only p0" @click="takeSelfie">
+      <button type="button" class="btn btn-icon-only p0" :disabled="!isVideoPlaying" @click="takeSelfie">
         <span id="take-selfie-icon" class="icon" v-html="icons.takePhoto"></span>
         <span class="sr-only"> Take a Selfie</span>
       </button>
@@ -50,6 +50,7 @@ export default {
       selfie: undefined,
       focusTrap: undefined,
       isInfoModalOpen: false,
+      isVideoPlaying: false,
       icons: {
         takePhoto: require('@/assets/img/icons/take_photo-24px.svg').default,
         info: require('@/assets/img/icons/info-24px.svg').default,
@@ -84,14 +85,17 @@ export default {
       this.$refs.openInfoModal.focus();
     },
   },
-  mounted() {
-    setupCamera(this.$refs.video);
+  async mounted() {
     // Setup focus trap for info modal
     this.focusTrap = createFocusTrap(this.$refs.infoModal, {
       onDeactivate: () => {
         if (this.isInfoModalOpen) this.closeInfoModal();
       },
     });
+    const camera = await setupCamera(this.$refs.video);
+    if (camera instanceof HTMLElement) {
+      this.isVideoPlaying = true;
+    }
   },
 }
 </script>
