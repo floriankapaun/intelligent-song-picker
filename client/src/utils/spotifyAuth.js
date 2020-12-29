@@ -6,7 +6,6 @@ class SpotifyAuth {
         this.accessToken = undefined;
         this.refreshToken = undefined;
         this.error = undefined;
-        this.user = undefined;
         this.loggedIn = false;
         this._init();
     }
@@ -25,25 +24,10 @@ class SpotifyAuth {
         if (this.accessToken) {
             this.loggedIn = true;
             console.info('Successfully authenticated with Spotify.');
-            // Fetch user data
-            await this.getUserData();
         } else {
             this.loggedIn = false;
             console.warn('AccessToken undefined. User must be logged out.')
         }
-    }
-
-    async getUserData() {
-        return fetch('https://api.spotify.com/v1/me', {
-            headers: {
-                'Authorization': `Bearer ${this.accessToken}`,
-            }
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                this.user = data;
-            })
-            .catch((error) => console.error(error));
     }
 
     async refreshAccessToken() {
