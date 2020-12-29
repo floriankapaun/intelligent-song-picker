@@ -20,13 +20,16 @@
 
 .icon {
     display: inline-block;
-    width: 100%;
-    max-width: 1.5em;
+    width: 1.5em;
     height: auto;
     fill: var(--ink);
 }
 
-.icon svg { display: block; }
+.icon svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
 
 .btn .icon { margin-right: 0.6em; }
 

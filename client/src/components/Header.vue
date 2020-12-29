@@ -83,7 +83,7 @@ export default {
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     transform: translateY(100%);
-    transition: 0.5s var(--easing);
+    transition: 0.1s var(--easing);
 }
 
 #menu.open {

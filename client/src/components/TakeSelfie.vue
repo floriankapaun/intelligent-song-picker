@@ -1,13 +1,31 @@
 <template>
-  <div>
+  <main class="m4">
     <h1 class="sr-only">Take a selfie</h1>
-    <div class="fullscreen-background_wrapper">
-      <video ref ="video" src=""></video>
-    </div>
-    <button @click="this.$refs.video.play()">Play Video</button>
-    <button @click="takeSelfie">Take a picture</button>
-    <canvas ref="canvas" class="hidden"></canvas>
-  </div>
+    <article class="fullscreen-background_wrapper">
+      <section class="loading-animation">
+        <div class="dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <p class="text-xs color-ink_light mt2">Starting Camera</p>
+      </section>
+      <video ref ="video" autoplay></video>
+    </article>
+    <!-- <button @click="this.$refs.video.play()">Play Video</button> -->
+
+    <article id="selfie-controls" class="flex flex-row justify-between p4">
+      <span class="spacing-size_button"></span>
+      <button type="button" class="btn btn-icon-only p0" @click="takeSelfie">
+        <span id="take-selfie-icon" class="icon" v-html="icons.takePhoto"></span>
+        <span class="sr-only"> Take a Selfie</span>
+      </button>
+      <button id="info-button" type="button" class="btn btn-icon-only p0" @click="openInfoModal">
+        <span class="icon" v-html="icons.info"></span>
+        <span class="sr-only"> Info</span>
+      </button>
+    </article>
+  </main>
 </template>
 
 <script>
@@ -17,6 +35,10 @@ export default {
   data() {
     return {
       selfie: undefined,
+      icons: {
+        takePhoto: require('@/assets/img/icons/take_photo-24px.svg').default,
+        info: require('@/assets/img/icons/info-24px.svg').default,
+      }
     };
   },
   methods: {
@@ -24,7 +46,7 @@ export default {
       const video = this.$refs.video;
       const videoWidth = video.videoWidth;
       const videoHeight = video.videoHeight;
-      const canvas = this.$refs.canvas;
+      const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
       if (video && videoWidth && videoHeight && canvas && context) {
         canvas.width = videoWidth;
@@ -39,3 +61,69 @@ export default {
   },
 }
 </script>
+
+<style lang="css" scoped>
+#selfie-controls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+}
+
+.spacing-size_button {
+  font-size: var(--font-size_s);
+  display: inline-block;
+  width: 1.5em;
+}
+
+#take-selfie-icon {
+  width: 4.5em;
+}
+
+#info-button {
+  align-self: center;
+}
+
+.loading-animation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.loading-animation .dots {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.loading-animation .dots span {
+  display: inline-block;
+  width: 0.8rem;
+  height: 0.8rem;
+  margin: 0.4rem;
+  background-color: var(--ink);
+  border-radius: 100%;
+  animation: float 1.8s infinite;
+}
+
+.loading-animation .dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-animation .dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes float {
+	0%, 100% {
+		transform: translateY(4px);
+	}
+	50% {
+		transform: translateY(-4px);
+	}
+}
+</style>
