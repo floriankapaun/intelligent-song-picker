@@ -6,7 +6,7 @@
             <div class="progress-bar" :style="{ '--progress': getCurrentPlayingProgress }"></div>
         </section>
         <section class="flex flex-row justify-between">
-            <button class="btn btn-icon-only p0" type="button" @click="$emit('deleteSelfie')">
+            <button class="btn btn-icon-only p0" type="button" @click="onNewSelfie">
                 <span class="icon" v-html="icons.photo"></span>
                 <span class="sr-only"> Take a new Selfie</span>
             </button>
@@ -76,6 +76,10 @@ export default {
         onPlayPause() {
             if (!this.player) return;
             this.isPlaying ? this.player.pause() : this.player.play();
+        },
+        onNewSelfie() {
+            if (this.player) this.player.pause();
+            this.$emit('deleteSelfie');
         },
     },
     computed: {
