@@ -54,14 +54,13 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.transition-in {
+.fullscreen-background_wrapper {
     transform: scale(0);
     transform-origin: center center;
-    animation: transition-in 0.15s var(--easing) 0s 1 forwards;
+    transition: 0.15s var(--easing);
 }
 
-@keyframes transition-in {
-    0% { transform: scale(0); }
-    100% { transform: scale(1); }
+.transition-in {
+    transform: scale(1);
 }
 </style>

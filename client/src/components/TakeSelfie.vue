@@ -51,6 +51,7 @@ export default {
       focusTrap: undefined,
       isInfoModalOpen: false,
       isVideoPlaying: false,
+      stream: undefined,
       icons: {
         takePhoto: require('@/assets/img/icons/take_photo-24px.svg').default,
         info: require('@/assets/img/icons/info-24px.svg').default,
@@ -69,8 +70,12 @@ export default {
         canvas.width = videoWidth;
         canvas.height = videoHeight;
         context.drawImage(video, 0, 0, videoWidth, videoHeight);
+        // Calculate img and base64 url
         const img = context.getImageData(0, 0, videoWidth, videoHeight);
         const url = canvas.toDataURL('image/png');
+        // Stop stream
+        this.stream.getTracks().forEach(track => track.stop());
+        // Emit img properties to parent
         this.$emit('tookSelfie', img, url);
       }
     },
@@ -94,9 +99,10 @@ export default {
         if (this.isInfoModalOpen) this.closeInfoModal();
       },
     });
-    const camera = await setupCamera(this.$refs.video);
-    if (camera instanceof HTMLElement) {
+    const { video, stream } = await setupCamera(this.$refs.video);
+    if (video instanceof HTMLElement) {
       this.isVideoPlaying = true;
+      this.stream = stream;
     }
   },
 }

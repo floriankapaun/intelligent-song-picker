@@ -36,7 +36,10 @@ export const setupCamera = async (videoElement) => {
     // Return promise that resolves if video is loaded
     return new Promise((resolve) => {
         videoElement.onloadedmetadata = () => {
-            resolve(videoElement);
+            resolve({
+                video: videoElement,
+                stream,
+            });
         };
     });
 }
