@@ -1,22 +1,21 @@
 <template>
     <main>
-        <div v-if="selfie && selfieURL" class="fullscreen-background_wrapper" :class="{ 'transition-in': imgLoaded }">
-            <img :src="selfieURL" alt="The Selfie you took" @load="imgLoaded = true">
+        <div v-if="selfie && selfie.img && selfie.url" class="fullscreen-background_wrapper" :class="{ 'transition-in': imgLoaded }">
+            <img :src="selfie.url" alt="The Selfie you took" @load="imgLoaded = true">
         </div>
-        <spotify-player v-if="recommendedTrack" ref="spotifyPlayer" :recommendedTrack="recommendedTrack" @deleteSelfie="$emit('deleteSelfie')"></spotify-player>
+        <player :recommendedTrack="recommendedTrack" :spotify="spotify" @deleteSelfie="$emit('deleteSelfie')"></player>
     </main>
 </template>
 
 <script>
-import SpotifyPlayer from '@/components/SpotifyPlayer.vue';
-import spotifyAuth from '@/utils/spotifyAuth.js';
+import Player from '@/components/Player.vue';
 import spotifyWorker from '@/worker/spotify/index.js';
 import imageWorker from '@/worker/image/index.js';
 
 export default {
     props: {
-        selfie: undefined,
-        selfieURL: undefined,
+        selfie: Object,
+        spotify: Object,
     },
     data() {
         return {
@@ -25,7 +24,7 @@ export default {
         };
     },
     components: {
-        SpotifyPlayer
+        Player,
     },
     mounted() {
         // Setup listener for spotifyWorker
@@ -43,12 +42,12 @@ export default {
         // Setup listener for imageWorker
         imageWorker.worker.onmessage = (event) => {
             spotifyWorker.send({
-                accessToken: spotifyAuth.accessToken,
+                accessToken: this.spotify.auth.accessToken,
                 imageData: event.data,
             });
         };
         // Send the received selfie to the imageWorker to start the processing pipeline
-        imageWorker.send(this.selfie);
+        imageWorker.send(this.selfie.img);
     },
 };
 </script>

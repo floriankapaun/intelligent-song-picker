@@ -1,17 +1,25 @@
 <template>
-    <take-selfie v-if="!selfie && !selfieURL" @tookSelfie="onTookSelfie" />
-    <recommendation v-else :selfie="selfie" :selfieURL="selfieURL" @deleteSelfie="onDeleteSelfie" />
+    <take-selfie v-if="!selfie.img && !selfie.url" @tookSelfie="onTookSelfie" />
+    <recommendation v-else :selfie="selfie" :spotify="spotify" @deleteSelfie="onDeleteSelfie" />
 </template>
 
 <script>
 import TakeSelfie from '@/components/TakeSelfie.vue';
 import Recommendation from '@/components/Recommendation.vue';
+import spotifyAuth from '@/utils/spotifyAuth.js';
+import spotifyPlayer from '@/utils/spotifyPlayer.js';
 
 export default {
     data() {
         return {
-            selfie: undefined,
-            selfieURL: undefined,
+            selfie: {
+                img: undefined,
+                url: undefined,
+            },
+            spotify: {
+                auth: spotifyAuth,
+                player: spotifyPlayer,
+            },
         };
     },
     components: {
@@ -20,12 +28,12 @@ export default {
     },
     methods: {
         onTookSelfie(img, url) {
-            this.selfie = img;
-            this.selfieURL = url;
+            this.selfie.img = img;
+            this.selfie.url = url;
         },
         onDeleteSelfie() {
-            this.selfie = null;
-            this.selfieURL = null;
+            this.selfie.img = null;
+            this.selfie.url = null;
         },
     },
 };
