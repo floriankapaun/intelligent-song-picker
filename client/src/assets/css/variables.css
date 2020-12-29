@@ -13,6 +13,8 @@
     --line-height_xl: 1.15;
 
     --paper: rgba(24, 24, 24, 1);
+    --paper_light: rgba(24, 24, 24, 0.45);
+    --paper_transparent: rgba(24, 24, 24, 0);
     --ink: rgba(255, 255, 255, 1);
     --ink_light: rgba(255, 255, 255, 0.45);
     --ink_lightest: rgba(255, 255, 255, 0.05);

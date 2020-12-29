@@ -30,7 +30,17 @@
 
 .p0 { padding: 0; }
 
+.py0 {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 .p2 { padding: 0.8rem; }
+
+.px2 {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+}
 
 .p4 { padding: 1.6rem; }
 

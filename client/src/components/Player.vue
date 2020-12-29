@@ -1,25 +1,25 @@
 <template>
-    <article v-if="recommendedTrack" id="spotify-player" class="p4">
-        <section v-if="spotify.player.currentTrack && spotify.player.currentTrack.item">
-            <h2>{{ getTrackName }}</h2>
-            <h3>{{ getArtistsNames }}</h3>
+    <article v-if="recommendedTrack" id="spotify-player">
+        <section id="player-info" class="p4" v-if="spotify.player.currentTrack && spotify.player.currentTrack.item">
+            <h2 class="text-m">{{ getTrackName }}</h2>
+            <h3 class="text-xs mb4">{{ getArtistsNames }}</h3>
             <div class="progress-bar" :style="{ '--progress': getCurrentPlayingProgress }"></div>
         </section>
-        <section class="flex flex-row justify-between">
+        <section id="player-controls" class="flex flex-row justify-between p4">
             <button class="btn btn-icon-only p0" type="button" @click="onNewSelfie">
                 <span class="icon" v-html="icons.photo"></span>
                 <span class="sr-only"> Take a new Selfie</span>
             </button>
             <div class="flex flex-row">
-                <button class="btn btn-icon-only p2" type="button" :disabled="isPlayerReady">
+                <button class="btn btn-icon-only px2 py0" type="button" :disabled="isPlayerReady">
                     <span class="icon" v-html="icons.skipPrevious"></span>
                     <span class="sr-only"> Skip to previous track</span>
                 </button>
-                <button class="btn btn-icon-only p2" type="button" :disabled="isPlayerReady" @click="onPlayPause">
+                <button class="btn btn-icon-only px2 py0" type="button" :disabled="isPlayerReady" @click="onPlayPause">
                     <span class="icon" v-html="isPlaying ? icons.pause : icons.play"></span>
                     <span class="sr-only"> Play/Pause track</span>
                 </button>
-                <button class="btn btn-icon-only p2" type="button" :disabled="isPlayerReady">
+                <button class="btn btn-icon-only px2 py0" type="button" :disabled="isPlayerReady">
                     <span class="icon" v-html="icons.skipNext"></span>
                     <span class="sr-only"> Skip to next track</span>
                 </button>
@@ -156,11 +156,27 @@ export default {
     right: 0;
 }
 
+#player-info {
+    position: relative;
+    padding-bottom: 0;
+}
+
+#player-info:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 150%;
+    background: linear-gradient(var(--paper_transparent), var(--paper_light));
+    z-index: -1;
+}
+
 .progress-bar {
     --progress: 0%;
     position: relative;
     width: 100%;
-    height: 5px;
+    height: 3px;
     background-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -172,5 +188,9 @@ export default {
     width: var(--progress);
     height: 100%;
     background-color: rgba(255, 255, 255, 0.8);
+}
+
+#player-controls {
+    background-color: var(--paper_light)
 }
 </style>
