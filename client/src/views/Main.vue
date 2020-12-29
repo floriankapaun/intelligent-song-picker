@@ -6,8 +6,7 @@
 <script>
 import TakeSelfie from '@/components/TakeSelfie.vue';
 import Recommendation from '@/components/Recommendation.vue';
-import spotifyAuth from '@/utils/spotifyAuth.js';
-import spotifyPlayer from '@/utils/spotifyPlayer.js';
+import spotify from '@/modules/spotify/index.js';
 
 export default {
     data() {
@@ -16,10 +15,7 @@ export default {
                 img: undefined,
                 url: undefined,
             },
-            spotify: {
-                auth: spotifyAuth,
-                player: spotifyPlayer,
-            },
+            spotify,
         };
     },
     components: {

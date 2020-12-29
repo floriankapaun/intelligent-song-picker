@@ -1,5 +1,5 @@
 import c from '@/config/index.js';
-import spotifyAuth from '@/utils/spotifyAuth.js';
+import spotifyAuth from '@/modules/spotify/auth.js';
 
 class SpotifyPlayer {
     constructor() {
