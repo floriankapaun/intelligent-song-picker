@@ -131,7 +131,6 @@ export default {
             if (this.currentTrack && "progress_ms" in this.currentTrack && this.currentTrack.item) {
                 const duration_ms = this.currentTrack.item.duration_ms;
                 const progress_ms = this.currentTrack.progress_ms;
-                console.log(duration_ms, progress_ms, (progress_ms / duration_ms) * 100);
                 return `${(progress_ms / duration_ms) * 100}%`;
             } else {
                 return null;
@@ -147,11 +146,7 @@ export default {
                 this.progressSimulationStart = Date.now();
                 this.progressSimulation = setInterval(() => {
                     this.updatePlayerProgress();
-<<<<<<< HEAD
                 }, 1000);
-=======
-                }, 333);
->>>>>>> ed182e9cebaec3813da2c9d39e8c11217581e7a6
             }
         },
     },
