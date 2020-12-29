@@ -3,7 +3,7 @@
         <div v-if="selfie && selfieURL" class="fullscreen-background_wrapper" :class="{ 'transition-in': imgLoaded }">
             <img :src="selfieURL" alt="The Selfie you took" @load="imgLoaded = true">
         </div>
-        <spotify-player ref="spotifyPlayer" @deleteSelfie="$emit('deleteSelfie')"></spotify-player>
+        <spotify-player v-if="recommendedTrack" ref="spotifyPlayer" :recommendedTrack="recommendedTrack" @deleteSelfie="$emit('deleteSelfie')"></spotify-player>
     </main>
 </template>
 
@@ -21,6 +21,7 @@ export default {
     data() {
         return {
             imgLoaded: false,
+            recommendedTrack: undefined,
         };
     },
     components: {
@@ -34,7 +35,7 @@ export default {
                 const { status, message } = error;
                 console.error(`${status}${status ? ': ' : null}${message}`);
             } else if (result && Object.keys(result).length > 0) {
-                this.$refs.spotifyPlayer.play(result);
+                this.recommendedTrack = result;
             } else {
                 console.error('Result from Spotify Worker is empty.');
             }

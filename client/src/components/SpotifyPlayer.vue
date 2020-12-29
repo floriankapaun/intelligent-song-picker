@@ -1,30 +1,30 @@
 <template>
-    <article id="spotify-player" class="p6">
+    <article v-if="recommendedTrack" id="spotify-player" class="p4">
         <section v-if="this.currentPlaying && this.currentPlaying.item">
             <h2>{{ getTrackName }}</h2>
             <h3>{{ getArtistsNames }}</h3>
             <div class="progress-bar" :style="{ '--progress': getCurrentPlayingProgress }"></div>
         </section>
-        <section v-if="this.player && this.playerConnected && this.playerReady" class="flex flex-row justify-between">
-            <button type="button" @click="$emit('deleteSelfie')">
+        <section class="flex flex-row justify-between">
+            <button class="btn btn-icon-only p0" type="button" @click="$emit('deleteSelfie')">
                 <span class="icon" v-html="icons.photo"></span>
                 <span class="sr-only"> Take a new Selfie</span>
             </button>
             <div class="flex flex-row">
-                <button type="button">
+                <button class="btn btn-icon-only p2" type="button" :disabled="isPlayerReady">
                     <span class="icon" v-html="icons.skipPrevious"></span>
                     <span class="sr-only"> Skip to previous track</span>
                 </button>
-                <button type="button" @click="onPlayPause">
+                <button class="btn btn-icon-only p2" type="button" :disabled="isPlayerReady" @click="onPlayPause">
                     <span class="icon" v-html="isPlaying ? icons.pause : icons.play"></span>
                     <span class="sr-only"> Play/Pause track</span>
                 </button>
-                <button type="button">
+                <button class="btn btn-icon-only p2" type="button" :disabled="isPlayerReady">
                     <span class="icon" v-html="icons.skipNext"></span>
                     <span class="sr-only"> Skip to next track</span>
                 </button>
             </div>
-            <button type="button">
+            <button class="btn btn-icon-only p0" type="button" :disabled="!recommendedTrack">
                 <span class="icon" v-html="icons.favorite"></span>
                 <span class="sr-only"> Mark track as favorite</span>
             </button>
@@ -37,13 +37,16 @@ import c from '@/config/config.js';
 import { spotifyController } from '@/utils/SpotifyController.js';
 
 export default {
+    props: {
+        recommendedTrack: undefined, 
+    },
     data() {
         return {
             currentPlaying: undefined,
             player: undefined,
             playerState: undefined,
             playerConnected: undefined,
-            playerReady: undefined,
+            playerReady: false,
             deviceId: undefined,
             icons: {
                 photo: require('@/assets/img/icons/photo_camera-24px.svg').default,
@@ -115,7 +118,7 @@ export default {
             });
         },
         play(track) {
-            if (this.playerConnected && this.playerReady) {
+            if (this.isPlayerReady) {
                 this.playTrack({
                     playerInstance: this.player,
                     spotifyURI: track.uri,
@@ -170,6 +173,11 @@ export default {
         },
     },
     computed: {
+        isPlayerReady() {
+            const ready = this.player && this.playerConnected && this.playerReady;
+            if (ready) return true;
+            else return false;
+        },
         isPlaying() {
             if (this.playerState && !this.playerState.paused) return true;
             return false;
