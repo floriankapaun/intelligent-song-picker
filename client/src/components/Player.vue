@@ -1,6 +1,6 @@
 <template>
     <article v-if="recommendedTrack" id="spotify-player">
-        <section id="player-info" class="p4" v-if="spotify.player.currentTrack && spotify.player.currentTrack.item">
+        <section id="player-info" class="p4" v-if="currentTrack && currentTrack.item">
             <h2 class="text-m">{{ getTrackName }}</h2>
             <h3 class="text-xs mb4">{{ getArtistsNames }}</h3>
             <div class="progress-bar" :style="{ '--progress': getCurrentPlayingProgress }"></div>
@@ -24,9 +24,9 @@
                     <span class="sr-only"> Skip to next track</span>
                 </button>
             </div>
-            <button class="btn btn-icon-only p0" type="button" :disabled="!recommendedTrack">
-                <span class="icon" v-html="icons.favorite"></span>
-                <span class="sr-only"> Mark track as favorite</span>
+            <button class="btn btn-icon-only p0" type="button" :disabled="!player || !currentTrack" @click="onSaveTrack">
+                <span class="icon" v-html="isCurrentTrackSaved ? icons.favorite : icons.makeFavorite"></span>
+                <span class="sr-only"> Save track in ‘Your Music’ library</span>
             </button>
         </section>
     </article>
@@ -52,6 +52,7 @@ export default {
                 pause: require('@/assets/img/icons/pause-24px.svg').default,
                 skipNext: require('@/assets/img/icons/skip_next-24px.svg').default,
                 favorite: require('@/assets/img/icons/favorite-24px.svg').default,
+                makeFavorite: require('@/assets/img/icons/make_favorite-24px.svg').default,
             }
         };
     },
@@ -62,7 +63,7 @@ export default {
                 // If playing the track was successfull, fetch the currently
                 // playing track data from spotify.
                 if (response.status === 204) {
-                    this.player.getCurrentTrack();
+                    await this.player.getCurrentTrack();
                 // TODO: Error handling
                 }
             } else {
@@ -70,7 +71,7 @@ export default {
             }
         },
         updatePlayerProgress() {
-            if (this.player && this.currentTrack && this.isPlaying) {
+            if (this.currentTrack && this.isPlaying) {
                 const difference = Date.now() - this.progressSimulationStart;
                 this.progressSimulationStart = Date.now();
                 this.currentTrack.progress_ms += difference;
@@ -90,6 +91,13 @@ export default {
             // Emit the event
             this.$emit('deleteSelfie');
         },
+        onSaveTrack() {
+            if (this.isCurrentTrackSaved) {
+                this.player.removeSavedTracks(this.currentTrack.item.id);
+            } else {
+                this.player.saveTracks(this.currentTrack.item.id);
+            }
+        },
     },
     computed: {
         player() {
@@ -107,6 +115,11 @@ export default {
         },
         isPlayerReady() {
             this.player && this.player.state.connection && this.player.state.player ? true : false;
+        },
+        isCurrentTrackSaved() {
+            return this.currentTrack && this.currentTrack.isSaved
+                ? this.currentTrack.isSaved
+                : false;
         },
         getTrackName() {
             if (this.currentTrack && this.currentTrack.item && this.currentTrack.item.name) {

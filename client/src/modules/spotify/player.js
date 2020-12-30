@@ -93,11 +93,71 @@ class SpotifyPlayer {
     getCurrentTrack() {
         return fetch(`${c.SPOTIFY_API_URL}/player/currently-playing`, {
             headers: {
-                'Authorization': `Bearer ${spotifyAuth.accessToken}`,
-            }
+                Authorization: `Bearer ${spotifyAuth.accessToken}`,
+            },
         })
             .then((response) => response.json())
-            .then((data) => this.currentTrack = data)
+            .then(async (data) => {
+                this.currentTrack = data;
+                // Check if the currentTrack is already saved to users library.
+                const isSaved = await this.isCurrentTrackSaved();
+                // Save that info to the currentTrack Object
+                this.currentTrack.isSaved = isSaved;
+                return this.currentTrack;
+            })
+            .catch((error) => console.error(error));
+    }
+
+    isCurrentTrackSaved() {
+        return fetch(`${c.SPOTIFY_API_URL}/tracks/contains?ids=${this.currentTrack.item.id}`, {
+            headers: {
+                Authorization: `Bearer ${spotifyAuth.accessToken}`,
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => data[0])
+            .catch((error) => console.error(error));
+    }
+
+    saveTracks(ids) {
+        return fetch(`${c.SPOTIFY_API_URL}/tracks?ids=${ids}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${spotifyAuth.accessToken}`,
+            },
+        })
+            .then(async (response) => {
+                if (response.ok) {
+                    // Updated saved state for currentTrack
+                    const isSaved = await this.isCurrentTrackSaved();
+                    this.currentTrack.isSaved = isSaved;
+                    // Return save state
+                    return this.currentTrack.isSaved;
+                } else {
+                    console.error('Saving this track caused an error', response);
+                }
+            })
+            .catch((error) => console.error(error));
+    }
+
+    removeSavedTracks(ids) {
+        return fetch(`${c.SPOTIFY_API_URL}/tracks?ids=${ids}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${spotifyAuth.accessToken}`,
+            },
+        })
+            .then(async (response) => {
+                if (response.ok) {
+                    // Updated saved state for currentTrack
+                    const isSaved = await this.isCurrentTrackSaved();
+                    this.currentTrack.isSaved = isSaved;
+                    // Return save state
+                    return this.currentTrack.isSaved;
+                } else {
+                    console.error('Removing this track from Spotify library caused an error', response);
+                }
+            })
             .catch((error) => console.error(error));
     }
 
