@@ -10,16 +10,18 @@ addEventListener('message', async (event) => {
     accessToken = event.data.accessToken;
 
     const { brightness, colorfulness, contrast } = event.data.parameters;
-
+    
+    const mean = (brightness + colorfulness + contrast) / 3;
+    
     const optimalAudioFeatures = {
-        // danceability: 0.808, // based on tempo, rhythm stability, beat strength, and overall regularity
+        danceability: 1 - contrast, // based on tempo, rhythm stability, beat strength, and overall regularity
         energy: contrast,
         mode: Math.round(brightness), // 1 (major) or 0 (minor)
-        speechiness: 0.66, // Values between 0.33 and 0.66 describe tracks that may contain both music and speech. Above 0.66 is probably only speech. Below 0.33 no speech.
+        // speechiness: 0.66, // Values between 0.33 and 0.66 describe tracks that may contain both music and speech. Above 0.66 is probably only speech. Below 0.33 no speech.
         // acousticness: 0.00187, // 0 (non-acoustic) - 1 (acoustic)
-        instrumentalness: colorfulness, // tracks above 0.5 are treated as intrumentals with increasing confidence towards 1.0
-        liveness: 0, // Detects the presence of an audience in the recording. Above 0.8 is probably live.
-        valence: 0, // Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric)
+        instrumentalness: 1 - colorfulness, // tracks above 0.5 are treated as intrumentals with increasing confidence towards 1.0
+        liveness: colorfulness, // Detects the presence of an audience in the recording. Above 0.8 is probably live.
+        valence: mean, // Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric)
     };
 
     const result = await getTrackReommendationFromSpotify(optimalAudioFeatures);
