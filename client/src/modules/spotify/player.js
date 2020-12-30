@@ -3,6 +3,10 @@ import spotifyAuth from '@/modules/spotify/auth.js';
 
 class SpotifyPlayer {
     constructor() {
+        this._reset();
+    }
+
+    _reset() {
         this.player = undefined;
         this.deviceId = undefined;
         this.state = {
@@ -17,6 +21,8 @@ class SpotifyPlayer {
 
     _init() {
         // Import Spotify Web Playback SDK via external script - there is no other way
+        const scriptExists = document.getElementById(c.SPOTIFY_WEB_PLAYBACK_SDK_SCRIPT_ID);
+        if (scriptExists) document.head.removeChild(scriptExists);
         const spotifyScript = document.createElement('script');
         spotifyScript.id = c.SPOTIFY_WEB_PLAYBACK_SDK_SCRIPT_ID;
         spotifyScript.src = 'https://sdk.scdn.co/spotify-player.js';
@@ -39,10 +45,17 @@ class SpotifyPlayer {
         // TODO: Add functionality to those (error) listeners
 
         // Error handling
-        player.addListener('initialization_error', ({ message }) => { console.error(message); });
-        player.addListener('authentication_error', ({ message }) => { console.error(message); });
-        player.addListener('account_error', ({ message }) => { console.error(message); });
-        player.addListener('playback_error', ({ message }) => { console.error(message); });
+        player.addListener('initialization_error', ({ message }) => { console.error('INIT', message); });
+        player.addListener('authentication_error', async ({ message }) => {
+            // If the authentication of the spotify WebPlaybackSDK failed, its probably due to
+            // an expired accessToken. In that case, refresh the accessToken provided by spotifyAuth
+            // and reset the initialization.
+            console.error(message);
+            await spotifyAuth.refreshAccessToken();
+            this._init();
+        });
+        player.addListener('account_error', ({ message }) => { console.error('ACC', message); });
+        player.addListener('playback_error', ({ message }) => { console.error('PLAYB', message); });
 
         // Playback status updates
         // player.addListener('player_state_changed', state => this.state.playback = state);

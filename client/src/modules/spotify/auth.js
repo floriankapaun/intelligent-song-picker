@@ -1,5 +1,5 @@
 import c from '@/config/index.js';
-import { getCookie } from '@/utils/index.js';
+import { getCookie, setCookie } from '@/utils/index.js';
 
 class SpotifyAuth {
     constructor() {
@@ -10,11 +10,11 @@ class SpotifyAuth {
         this._init();
     }
 
-    async _init() {
+    _init() {
         // Get cookies
-        this.accessToken = getCookie('SPOTIFY_ACCESS_TOKEN');
-        this.refreshToken = getCookie('SPOTIFY_REFRESH_TOKEN');
-        this.error = getCookie('SPOTIFY_AUTH_ERROR');
+        this.accessToken = getCookie(c.COOKIE_NAME_SPOTIFY_ACCESS_TOKEN);
+        this.refreshToken = getCookie(c.COOKIE_NAME_SPOTIFY_REFRESH_TOKEN);
+        this.error = getCookie(c.COOKIE_NAME_SPOTIFY_AUTH_ERROR);
 
         if (this.error) {
             console.error(error);
@@ -26,16 +26,18 @@ class SpotifyAuth {
             console.info('Successfully authenticated with Spotify.');
         } else {
             this.loggedIn = false;
-            console.warn('AccessToken undefined. User must be logged out.')
+            console.warn('Spotify AccessToken undefined. User seems to be logged out.')
         }
     }
 
-    async refreshAccessToken() {
+    refreshAccessToken() {
         return fetch(`${c.API_URL}refresh_token?refreshToken=${this.refreshToken}`)
             .then((response) => response.json())
             .then((data) => {
                 this.accessToken = data.accessToken;
-                console.info('Updated AccessToken: \n', this.accessToken);
+                setCookie(c.COOKIE_NAME_SPOTIFY_ACCESS_TOKEN, this.accessToken);
+                console.info('Successfully updated Spotify AccessToken.');
+                return this.accessToken;
             })
             .catch((error) => console.error(error));
     }
