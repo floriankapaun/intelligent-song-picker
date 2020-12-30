@@ -30,7 +30,9 @@ export default {
         // Setup listener for spotifyWorker
         spotifyWorker.worker.onmessage = (event) => {
             const { error, result } = event.data;
-            if (error) {
+            if (result && Object.keys(result).length > 0) {
+                this.recommendedTrack = result;
+            } else if (error) {
                 const { status, message } = error;
                 if (status && message) {
                     console.error(`${status}: ${message}`);
@@ -39,8 +41,6 @@ export default {
                 } else {
                     conso.error('SpotifyWorker returned undefined Error.')
                 }
-            } else if (result && Object.keys(result).length > 0) {
-                this.recommendedTrack = result;
             } else {
                 console.error('Result from SpotifyWorker is empty.');
             }
