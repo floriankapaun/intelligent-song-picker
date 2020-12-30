@@ -62,16 +62,26 @@ export default {
   methods: {
     takeSelfie() {
       const video = this.$refs.video;
-      const videoWidth = video.videoWidth;
-      const videoHeight = video.videoHeight;
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
-      if (video && videoWidth && videoHeight && canvas && context) {
-        canvas.width = videoWidth;
-        canvas.height = videoHeight;
-        context.drawImage(video, 0, 0, videoWidth, videoHeight);
+      const videoWidth = video.videoWidth;
+      const videoHeight = video.videoHeight;
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      if (video && canvas && context && videoWidth && videoHeight && windowWidth && windowHeight) {
+        // Set Canvas size to "fullscreen"
+        canvas.width = windowWidth;
+        canvas.height = windowHeight;
+        // The image has to "fill" the canvas
+        // Calculate the scale factor to achieve this effect
+        const scale = Math.max(windowWidth / videoWidth, windowHeight / videoHeight);
+        // Calculate the top left position of the image on the canvas
+        const x = (windowWidth / 2) - (videoWidth / 2) * scale;
+        const y = (windowHeight / 2) - (videoHeight / 2) * scale;
+        // Draw the scaled image onto the canvas
+        context.drawImage(video, x, y, videoWidth * scale, videoHeight * scale);
         // Calculate img and base64 url
-        const img = context.getImageData(0, 0, videoWidth, videoHeight);
+        const img = context.getImageData(0, 0, windowWidth, windowHeight);
         const url = canvas.toDataURL('image/png');
         // Stop stream
         this.stream.getTracks().forEach(track => track.stop());
