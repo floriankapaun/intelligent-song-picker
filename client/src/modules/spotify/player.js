@@ -1,6 +1,12 @@
 import c from '@/config/index.js';
 import spotifyAuth from '@/modules/spotify/auth.js';
 
+const defaultHeaders = {
+    headers: {
+        Authorization: `Bearer ${spotifyAuth.accessToken}`,
+    },
+};
+
 class SpotifyPlayer {
     constructor() {
         this._reset();
@@ -91,11 +97,7 @@ class SpotifyPlayer {
     }
 
     getCurrentTrack() {
-        return fetch(`${c.SPOTIFY_API_URL}/player/currently-playing`, {
-            headers: {
-                Authorization: `Bearer ${spotifyAuth.accessToken}`,
-            },
-        })
+        return fetch(`${c.SPOTIFY_API_URL}/player/currently-playing`, { ...defaultHeaders })
             .then((response) => response.json())
             .then(async (data) => {
                 this.currentTrack = data;
@@ -109,11 +111,7 @@ class SpotifyPlayer {
     }
 
     isCurrentTrackSaved() {
-        return fetch(`${c.SPOTIFY_API_URL}/tracks/contains?ids=${this.currentTrack.item.id}`, {
-            headers: {
-                Authorization: `Bearer ${spotifyAuth.accessToken}`,
-            },
-        })
+        return fetch(`${c.SPOTIFY_API_URL}/tracks/contains?ids=${this.currentTrack.item.id}`, { ...defaultHeaders })
             .then((response) => response.json())
             .then((data) => data[0])
             .catch((error) => console.error(error));
@@ -122,9 +120,7 @@ class SpotifyPlayer {
     saveTracks(ids) {
         return fetch(`${c.SPOTIFY_API_URL}/tracks?ids=${ids}`, {
             method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${spotifyAuth.accessToken}`,
-            },
+            ...defaultHeaders,
         })
             .then(async (response) => {
                 if (response.ok) {
@@ -143,9 +139,7 @@ class SpotifyPlayer {
     removeSavedTracks(ids) {
         return fetch(`${c.SPOTIFY_API_URL}/tracks?ids=${ids}`, {
             method: 'DELETE',
-            headers: {
-                Authorization: `Bearer ${spotifyAuth.accessToken}`,
-            },
+            ...defaultHeaders,
         })
             .then(async (response) => {
                 if (response.ok) {
@@ -164,9 +158,7 @@ class SpotifyPlayer {
     play() {
         return fetch(`${c.SPOTIFY_API_URL}/player/play`, {
             method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${spotifyAuth.accessToken}`,
-            }
+            ...defaultHeaders,
         })
             .catch((error) => console.error(error));
     }
@@ -174,10 +166,33 @@ class SpotifyPlayer {
     pause() {
         return fetch(`${c.SPOTIFY_API_URL}/player/pause`, {
             method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${spotifyAuth.accessToken}`,
-            }
+            ...defaultHeaders,
         })
+            .catch((error) => console.error(error));
+    }
+
+    skipPrevious() {
+        return fetch(`${c.SPOTIFY_API_URL}/player/previous?device_id=${this.deviceId}`, {
+            method: 'POST',
+            ...defaultHeaders,
+        })
+            .then((response) => {
+                // FIXME: Not doing anything because there currently is no previous/next track
+                console.log(response);
+                return response;
+            })
+            .catch((error) => console.error(error));
+    }
+
+    skipNext() {
+        return fetch(`${c.SPOTIFY_API_URL}/player/next?device_id=${this.deviceId}`, {
+            method: 'POST',
+            ...defaultHeaders,
+        })
+            .then((response) => {
+                console.log(response);
+                return response;
+            })
             .catch((error) => console.error(error));
     }
 }

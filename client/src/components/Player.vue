@@ -11,7 +11,7 @@
                 <span class="sr-only"> Take a new Selfie</span>
             </button>
             <div class="flex flex-row">
-                <button class="btn btn-icon-only px2 py0" type="button" :disabled="isPlayerReady">
+                <button class="btn btn-icon-only px2 py0" type="button" :disabled="isPlayerReady" @click="onSkipPrevious">
                     <span class="icon" v-html="icons.skipPrevious"></span>
                     <span class="sr-only"> Skip to previous track</span>
                 </button>
@@ -19,7 +19,7 @@
                     <span class="icon" v-html="isPlaying ? icons.pause : icons.play"></span>
                     <span class="sr-only"> Play/Pause track</span>
                 </button>
-                <button class="btn btn-icon-only px2 py0" type="button" :disabled="isPlayerReady">
+                <button class="btn btn-icon-only px2 py0" type="button" :disabled="isPlayerReady" @click="onSkipNext">
                     <span class="icon" v-html="icons.skipNext"></span>
                     <span class="sr-only"> Skip to next track</span>
                 </button>
@@ -79,10 +79,6 @@ export default {
                 clearInterval(this.progressSimulation);
             }
         },
-        onPlayPause() {
-            if (!this.player) return;
-            this.isPlaying ? this.player.pause() : this.player.play();
-        },
         onNewSelfie() {
             // Pause Spotify player
             if (this.player) this.player.pause();
@@ -90,6 +86,16 @@ export default {
             clearInterval(this.progressSimulation);
             // Emit the event
             this.$emit('deleteSelfie');
+        },
+        onSkipPrevious() {
+            if (this.player) this.player.skipPrevious();
+        },
+        onPlayPause() {
+            if (!this.player) return;
+            this.isPlaying ? this.player.pause() : this.player.play();
+        },
+        onSkipNext() {
+            if (this.player) this.player.skipNext();
         },
         onSaveTrack() {
             if (this.isCurrentTrackSaved) {
