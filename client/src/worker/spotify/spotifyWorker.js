@@ -1,18 +1,23 @@
 let accessToken = undefined;
 
 addEventListener('message', async (event) => {
+    if (!event.data.accessToken || !event.data.parameters) {
+        const error = { message: 'SpotifyWorker wasn\'t provided with the required parameters.' };
+        postMessage({ error });
+        return { error };
+    }
     // Make the accessToken globally accessible inside the worker
     accessToken = event.data.accessToken;
 
-    const { imageData } = event.data;
+    const { brightness, colorfulness, contrast } = event.data.parameters;
 
     const optimalAudioFeatures = {
         // danceability: 0.808, // based on tempo, rhythm stability, beat strength, and overall regularity
-        energy: imageData.contrast,
-        mode: Math.round(imageData.brightness), // 1 (major) or 0 (minor)
+        energy: contrast,
+        mode: Math.round(brightness), // 1 (major) or 0 (minor)
         speechiness: 0.66, // Values between 0.33 and 0.66 describe tracks that may contain both music and speech. Above 0.66 is probably only speech. Below 0.33 no speech.
         // acousticness: 0.00187, // 0 (non-acoustic) - 1 (acoustic)
-        instrumentalness: imageData.colorfulness, // tracks above 0.5 are treated as intrumentals with increasing confidence towards 1.0
+        instrumentalness: colorfulness, // tracks above 0.5 are treated as intrumentals with increasing confidence towards 1.0
         liveness: 0, // Detects the presence of an audience in the recording. Above 0.8 is probably live.
         valence: 0, // Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric)
     };

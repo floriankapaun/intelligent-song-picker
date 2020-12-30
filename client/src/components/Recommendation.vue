@@ -32,18 +32,24 @@ export default {
             const { error, result } = event.data;
             if (error) {
                 const { status, message } = error;
-                console.error(`${status}${status ? ': ' : null}${message}`);
+                if (status && message) {
+                    console.error(`${status}: ${message}`);
+                } else if (message) {
+                    console.error(message);
+                } else {
+                    conso.error('SpotifyWorker returned undefined Error.')
+                }
             } else if (result && Object.keys(result).length > 0) {
                 this.recommendedTrack = result;
             } else {
-                console.error('Result from Spotify Worker is empty.');
+                console.error('Result from SpotifyWorker is empty.');
             }
         };
         // Setup listener for imageWorker
         imageWorker.worker.onmessage = (event) => {
             spotifyWorker.send({
                 accessToken: this.spotify.auth.accessToken,
-                imageData: event.data,
+                parameters: event.data,
             });
         };
         // Send the received selfie to the imageWorker to start the processing pipeline
