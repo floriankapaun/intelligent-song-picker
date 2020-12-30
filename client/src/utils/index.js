@@ -24,6 +24,10 @@ export const deleteCookie = (cookieName) => {
 };
 
 export const setupCamera = async (videoElement) => {
+    // iOS is restricting camera access to Safari as of now
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        return { error: true };
+    }
     // Create new stream from camera
     const stream = await navigator.mediaDevices.getUserMedia({
         audio: false,

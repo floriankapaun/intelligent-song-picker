@@ -1,7 +1,7 @@
 <template>
   <main class="m4">
     <h1 class="sr-only">Take a selfie</h1>
-    <article class="fullscreen-background_wrapper">
+    <article v-if="!error" class="fullscreen-background_wrapper">
       <section class="loading-animation">
         <div class="dots">
           <span></span>
@@ -10,9 +10,15 @@
         </div>
         <p class="text-xs color-ink_light mt2">Starting Camera</p>
       </section>
-      <video ref="video" tabindex="-1" autoplay></video>
+      <video ref="video" tabindex="-1" autoplay playsinline muted></video>
     </article>
-    <!-- <button @click="this.$refs.video.play()">Play Video</button> -->
+
+    <article v-else-if="error" class="error">
+      <h1 class="mb4">Oh oh. 😲</h1>
+      <p class="mb3">Looks like you're using an iPhone.</p>
+      <p class="mb3">Apple is very restrictive when it comes to accessing the camera in browsers other than Safari.</p>
+      <p>That's why this app works only in Safari for now.</p>
+    </article>
 
     <article id="selfie-controls" class="flex flex-row justify-between p4">
       <span class="spacing-size_button"></span>
@@ -52,6 +58,7 @@ export default {
       isInfoModalOpen: false,
       isVideoPlaying: false,
       stream: undefined,
+      error: false,
       icons: {
         takePhoto: require('@/assets/img/icons/take_photo-24px.svg').default,
         info: require('@/assets/img/icons/info-24px.svg').default,
@@ -109,10 +116,12 @@ export default {
         if (this.isInfoModalOpen) this.closeInfoModal();
       },
     });
-    const { video, stream } = await setupCamera(this.$refs.video);
+    const { video, stream, error } = await setupCamera(this.$refs.video);
     if (video instanceof HTMLElement) {
       this.isVideoPlaying = true;
       this.stream = stream;
+    } else if (error) {
+      this.error = error;
     }
   },
 }
