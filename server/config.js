@@ -4,7 +4,9 @@ dotenv.config();
 
 export const PORT = process.env.PORT;
 export const API_ROUTE = process.env.API_ROUTE;
-export const REDIRECT_URI = `http://localhost:${PORT}${API_ROUTE}/callback`;
+export const REDIRECT_URI = process.env.PRODUCTION
+    ? `https://spotify.kapaun.uber.space${API_ROUTE}/callback`
+    : `http://localhost:${PORT}${API_ROUTE}/callback`;
 export const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 export const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 export const SPOTIFY_LOGIN_STATE_KEY = process.env.SPOTIFY_LOGIN_STATE_KEY;

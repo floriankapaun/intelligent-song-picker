@@ -65,6 +65,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+    console.log(to, from, next);
     /**
      * Handle authentication
      */
@@ -78,7 +79,7 @@ router.beforeEach((to, from, next) => {
         if (!getCookie('SPOTIFY_ACCESS_TOKEN') && !getCookie('SPOTIFY_REFRESH_TOKEN')) {
             next();
         } else {
-            next({ path: '/photo' });
+            next({ path: '/player' });
         }
     } else {
         next();
