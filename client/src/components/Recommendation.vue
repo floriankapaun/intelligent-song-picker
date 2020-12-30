@@ -1,6 +1,6 @@
 <template>
     <main>
-        <div v-if="selfie && selfie.img && selfie.url" class="fullscreen-background_wrapper" :class="{ 'transition-in': imgLoaded }">
+        <div v-if="selfie && selfie.img && selfie.url" class="fullscreen-background_wrapper transition-in_setup" :class="{ 'transition-in': imgLoaded }">
             <img :src="selfie.url" alt="The Selfie you took" @load="imgLoaded = true">
         </div>
         <player :recommendedTrack="recommendedTrack" :spotify="spotify" @deleteSelfie="$emit('deleteSelfie')"></player>
@@ -59,7 +59,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.fullscreen-background_wrapper {
+.transition-in_setup {
     transform: scale(0);
     transform-origin: center center;
     transition: 0.15s var(--easing);
