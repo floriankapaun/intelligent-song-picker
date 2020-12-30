@@ -14,11 +14,12 @@ addEventListener('message', async (event) => {
     const rg = [];
     const yb = [];
 
-    for (let x = 0; x < selfie.width; x++) {
-        for (let y = 0; y < selfie.height; y++) {
+    
+    for (let y = 0; y < selfie.height; y++) {
+        for (let x = 0; x < selfie.width; x++) {
             const r = getPixelValue(x, y, R_OFFSET);
             const g = getPixelValue(x, y, G_OFFSET);
-            const b = getPixelValue(x, y, B_OFFSET);
+            const b = getPixelValue(x, y, B_OFFSET);            
             const luminance = getLuminance([r, g, b]);
             pixelLuminance.push(byteToUnitInterval(luminance));
 
@@ -27,7 +28,7 @@ addEventListener('message', async (event) => {
         }
     }
 
-    const selfieBrightness = getMean(pixelLuminance);
+    const selfieBrightness = increaseValueDynamics(getMean(pixelLuminance));
 
     // Remains pretty small (for most selfies below 0.3)
     const selfieStandardDeviation = getStandardDeviation(pixelLuminance);
@@ -95,3 +96,15 @@ const getStandardDeviation = (array) => {
 };
 
 const getLuminance = (array) => (array[0] + array[0] + array[1] + array[2] + array[2] + array[2]) / 6;
+
+// Scales a UnitInterval value by logistic function (non-linear) to increase the
+// value dynamics in the middle range.
+// Reference: https://en.wikipedia.org/wiki/Logistic_function
+const increaseValueDynamics = (x) => {
+    const max = 1;
+    const mid = 0.47; // Photos tend to be darker hence the slight shift below 0.5
+    const k = 8;
+
+    const power = -k * (x - mid);
+    return max / (1 + Math.pow(Math.E, power));
+}
