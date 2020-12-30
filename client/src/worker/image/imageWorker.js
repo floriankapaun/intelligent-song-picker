@@ -10,10 +10,8 @@ addEventListener('message', async (event) => {
     selfie = event.data;
 
     const pixelLuminance = [];
-
     const rg = [];
     const yb = [];
-
     
     for (let y = 0; y < selfie.height; y++) {
         for (let x = 0; x < selfie.width; x++) {
@@ -28,21 +26,12 @@ addEventListener('message', async (event) => {
         }
     }
 
-    const selfieBrightness = increaseValueDynamics(getMean(pixelLuminance));
-
-    // Remains pretty small (for most selfies below 0.3)
-    const selfieStandardDeviation = getStandardDeviation(pixelLuminance);
-
-	// Compute the mean and standard deviation of both 'rg' and 'yb'
-    const rgMean = getMean(rg);
-    const ybMean = getMean(yb);
-    const rgStandardDeviation = getStandardDeviation(rg);
-    const ybStandardDeviation = getStandardDeviation(yb);
-    // Combine the mean and standard deviations
-    const rootStandardDeviation = Math.sqrt(Math.pow(rgStandardDeviation, 2) + Math.pow(ybStandardDeviation, 2));
-    const rootMean = Math.sqrt(Math.pow(rgMean, 2) + Math.pow(ybMean, 2));
-	// Calculate the "colorfulness"
-    const selfieColorfulness = rootStandardDeviation + (0.3 * rootMean);
+    // Brightness
+    const selfieBrightness = increaseValueDynamics(getMean(pixelLuminance), 8, 0.47, 1);
+    // StandardDeviation aka "Contrast"
+    const selfieStandardDeviation = increaseValueDynamics(getStandardDeviation(pixelLuminance), 15, 0.2, 1);
+    // "Colorfulness"
+    const selfieColorfulness = increaseValueDynamics(getColorfulness(rg, yb), 30, 0.1, 1);
 
     /**
      * Has to return values that get mapped to the following audio parameters:
@@ -97,14 +86,23 @@ const getStandardDeviation = (array) => {
 
 const getLuminance = (array) => (array[0] + array[0] + array[1] + array[2] + array[2] + array[2]) / 6;
 
+const getColorfulness = (rg, yb) => {
+    // Compute the mean and standard deviation of both 'rg' and 'yb'
+    const rgMean = getMean(rg);
+    const ybMean = getMean(yb);
+    const rgStandardDeviation = getStandardDeviation(rg);
+    const ybStandardDeviation = getStandardDeviation(yb);
+    // Combine the mean and standard deviations
+    const rootStandardDeviation = Math.sqrt(Math.pow(rgStandardDeviation, 2) + Math.pow(ybStandardDeviation, 2));
+    const rootMean = Math.sqrt(Math.pow(rgMean, 2) + Math.pow(ybMean, 2));
+	// Calculate the "colorfulness"
+    return rootStandardDeviation + (0.3 * rootMean);
+};
+
 // Scales a UnitInterval value by logistic function (non-linear) to increase the
 // value dynamics in the middle range.
 // Reference: https://en.wikipedia.org/wiki/Logistic_function
-const increaseValueDynamics = (x) => {
-    const max = 1;
-    const mid = 0.47; // Photos tend to be darker hence the slight shift below 0.5
-    const k = 8;
-
+const increaseValueDynamics = (x, k = 8, mid = 0.5, max = 1) => {
     const power = -k * (x - mid);
     return max / (1 + Math.pow(Math.E, power));
-}
+};
