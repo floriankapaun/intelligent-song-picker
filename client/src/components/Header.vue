@@ -5,29 +5,36 @@
             <span class="sr-only">Menu </span>
             <span class="icon" v-html="icons.menu"></span>
         </button>
-        <nav id="menu" ref="menu" class="modal p4" :class="isNavigationMenuOpen ? 'open' : null" aria-label="Navigation Menu content">
-            <button id="close-menu" ref="closeMenu" class="btn btn-icon-only p0 mb8" aria-label="Hide Navigation Menu" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
-                <span class="sr-only">Close </span>
-                <span class="icon" v-html="icons.close"></span>
-            </button>
-            <ul>
-                <li>
+        <article id="menu" ref="menu" class="flex flex-col justify-between modal p4" :class="isNavigationMenuOpen ? 'open' : null" aria-label="Navigation Menu content">
+            <section>
+                <button id="close-menu" ref="closeMenu" class="btn btn-icon-only p0 mb8" aria-label="Hide Navigation Menu" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
+                    <span class="sr-only">Close </span>
+                    <span class="icon" v-html="icons.close"></span>
+                </button>
+                <nav class="flex flex-col align-center text-xl text-center">
                     <router-link accesskey="h" to="/" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                         Home
                     </router-link>
-                </li>
-                <li>
                     <router-link accesskey="a" to="about" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                         About
                     </router-link>
-                </li>
-                <li>
                     <router-link accesskey="l" to="logout" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                         Logout
                     </router-link>
-                </li>
-            </ul>
-        </nav>
+                </nav>
+            </section>
+            <section class="flex flex-row flex-wrap justify-between align-center text-xs">
+                <router-link class="pr2" accesskey="i" to="imprint" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
+                    Imprint
+                </router-link>
+                <p class="pr2">
+                    © 2020 <a href="https://florian-kapaun.de" target="_blank" accesskey="f" :tabindex="isNavigationMenuOpen ? 0 : -1">Florian Kapaun</a>
+                </p>
+                <router-link accesskey="d" to="data-privacy" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
+                    Data privacy
+                </router-link>
+            </section>
+        </article>
     </header>
 </template>
 

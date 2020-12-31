@@ -2,7 +2,13 @@
 
 .flex-row { flex-direction: row; }
 
+.flex-col { flex-direction: column; }
+
+.flex-wrap { flex-wrap: wrap; }
+
 .justify-between { justify-content: space-between; }
+
+.align-center { align-items: center; }
 
 .inline-block { display: inline-block; }
 
@@ -11,6 +17,10 @@
 .text-xs { font-size: var(--font-size_xs); }
 
 .text-m { font-size: var(--font-size_m); }
+
+.text-xl { font-size: var(--font-size_xl); }
+
+.text-center { text-align: center; }
 
 .no-decoration { text-decoration: none; }
 
@@ -36,6 +46,8 @@
 }
 
 .p2 { padding: 0.8rem; }
+
+.pr2 { padding-right: 0.8rem; }
 
 .px2 {
     padding-left: 0.8rem;
