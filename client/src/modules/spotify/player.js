@@ -51,7 +51,11 @@ class SpotifyPlayer {
         // TODO: Add functionality to those (error) listeners
 
         // Error handling
-        player.addListener('initialization_error', ({ message }) => { console.error('INIT', message); });
+        player.addListener('initialization_error', ({ message }) => {
+            // FIXME: Spotify Web Playback SDK is not supported on any mobile devices
+            // Either use links to the spotify App or a Spotify Widget or a device selection and try to play on that device
+            console.error('INIT', message);
+        });
         player.addListener('authentication_error', async ({ message }) => {
             // If the authentication of the spotify WebPlaybackSDK failed, its probably due to
             // an expired accessToken. In that case, refresh the accessToken provided by spotifyAuth
