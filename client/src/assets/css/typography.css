@@ -9,6 +9,10 @@
 
 :root { font-size: 115%; }
 
+@media (min-width: 768px) {
+    :root { font-size: 150%; }
+}
+
 body {
     font-family: var(--font-family);
     font-size: var(--font-size_m);
