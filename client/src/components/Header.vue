@@ -1,12 +1,12 @@
 <template>
-    <header class="flex flex-row justify-between p4">
+    <header class="w-limited flex flex-row justify-between p4">
         <router-link to="/player">ARBEITSTITEL</router-link>
         <button type="button" id="open-menu" ref="openMenu" class="btn btn-icon-only p0" aria-label="Open Navigation Menu" :aria-expanded="isNavigationMenuOpen" @click="openMenu">
             <span class="sr-only">Menu </span>
             <span class="icon" v-html="icons.menu"></span>
         </button>
-        <article id="menu" ref="menu" class="flex flex-col justify-between modal p4" :class="isNavigationMenuOpen ? 'open' : null" aria-label="Navigation Menu content">
-            <section>
+        <article id="menu" ref="menu" class="flex flex-col justify-between modal" :class="isNavigationMenuOpen ? 'open' : null" aria-label="Navigation Menu content">
+            <section class="w-limited p4">
                 <button id="close-menu" ref="closeMenu" class="btn btn-icon-only p0 mb8" aria-label="Hide Navigation Menu" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                     <span class="sr-only">Close </span>
                     <span class="icon" v-html="icons.close"></span>
@@ -23,7 +23,7 @@
                     </router-link>
                 </nav>
             </section>
-            <section class="flex flex-row flex-wrap justify-between align-center text-xs">
+            <section class="w-limited flex flex-row flex-wrap justify-between align-center text-xs p4">
                 <router-link class="pr2" accesskey="i" to="imprint" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                     Imprint
                 </router-link>
@@ -75,3 +75,7 @@ export default {
     },
 };
 </script>
+
+<style lang="css">
+#menu { z-index: 999; }
+</style>

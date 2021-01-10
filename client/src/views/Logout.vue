@@ -1,5 +1,5 @@
 <template>
-    <main class="p4">
+    <main class="w-limited p4">
         <h1 class="mb4">Sad to see you go...</h1>
         <p class="mb3">Wait while getting logged out.</p>
         <p>You'll be redirected automatically.</p>

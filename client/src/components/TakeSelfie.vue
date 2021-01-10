@@ -1,26 +1,26 @@
 <template>
-  <main class="m4">
+  <article class="w-limited p4">
     <h1 class="sr-only">Take a selfie</h1>
-    <article v-if="!error" class="fullscreen-background_wrapper">
-      <section class="loading-animation">
+    <section v-if="!error" class="fullscreen-background_wrapper">
+      <div class="loading-animation">
         <div class="dots">
           <span></span>
           <span></span>
           <span></span>
         </div>
         <p class="text-xs color-ink_light mt2">Starting Camera</p>
-      </section>
+      </div>
       <video ref="video" tabindex="-1" autoplay playsinline muted></video>
-    </article>
+    </section>
 
-    <article v-else-if="error" class="error">
+    <section v-else-if="error" class="error">
       <h1 class="mb4">Oh oh. 😲</h1>
       <p class="mb3">Looks like you're using an iPhone.</p>
       <p class="mb3">Apple is very restrictive when it comes to accessing the camera in browsers other than Safari.</p>
       <p>That's why this app works only in Safari for now.</p>
-    </article>
+    </section>
 
-    <article id="selfie-controls" class="flex flex-row justify-between p4">
+    <section id="selfie-controls" class="w-limited flex flex-row justify-between p4">
       <span class="spacing-size_button"></span>
       <button type="button" class="btn btn-icon-only p0" :disabled="!isVideoPlaying" @click="takeSelfie">
         <span id="take-selfie-icon" class="icon" v-html="icons.takePhoto"></span>
@@ -30,20 +30,20 @@
         <span class="icon" v-html="icons.info"></span>
         <span class="sr-only"> Info</span>
       </button>
-    </article>
+    </section>
 
-    <article ref="infoModal" class="modal p4" :class="isInfoModalOpen ? 'open' : null" aria-label="Info Modal content">
-      <section class="flex flex-row justify-between mb8">
+    <section ref="infoModal" class="modal" :class="isInfoModalOpen ? 'open' : null" aria-label="Info Modal content">
+      <div class="w-limited flex flex-row justify-between mb8 pt4 px4">
         <button ref="closeInfoModal" class="btn btn-icon-only p0" aria-label="Hide Info Modal" :tabindex="isInfoModalOpen ? 0 : -1" @click="closeInfoModal">
           <span class="sr-only">Close </span>
           <span class="icon" v-html="icons.close"></span>
         </button>
         <h2 class="text-m">Take a Selfie</h2>
         <span class="spacing-size_button"></span>
-      </section>
-      <p>Based on your photo, we will play the perfect song for you. Don't worry, the picture stays on your device. Click the photo button now to get started.</p>
-    </article>
-  </main>
+      </div>
+      <p class="w-limited px4">Based on your photo, we will play the perfect song for you. Don't worry, the picture stays on your device. Click the photo button now to get started.</p>
+    </section>
+  </article>
 </template>
 
 <script>

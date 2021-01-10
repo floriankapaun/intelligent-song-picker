@@ -1,8 +1,8 @@
 <template>
     <main>
-        <div v-if="selfie && selfie.img && selfie.url" class="fullscreen-background_wrapper transition-in_setup" :class="{ 'transition-in': imgLoaded }">
+        <article v-if="selfie && selfie.img && selfie.url" class="fullscreen-background_wrapper transition-in_setup" :class="{ 'transition-in': imgLoaded }">
             <img :src="selfie.url" alt="The Selfie you took" @load="imgLoaded = true">
-        </div>
+        </article>
         <player :recommendedTrack="recommendedTrack" :spotify="spotify" @deleteSelfie="$emit('deleteSelfie')"></player>
     </main>
 </template>

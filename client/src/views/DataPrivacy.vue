@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main class="w-limited p4">
     <h1>Data Privacy</h1>
-  </div>
+  </main>
 </template>

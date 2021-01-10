@@ -1,35 +1,39 @@
 <template>
-    <article v-if="recommendedTrack" id="spotify-player">
-        <section id="player-info" class="p4" v-if="currentTrack && currentTrack.item">
-            <h2 class="text-m">{{ getTrackName }}</h2>
-            <h3 class="text-xs mb4">{{ getArtistsNames }}</h3>
-            <div class="progress-bar" :style="{ '--progress': getCurrentPlayingProgress }"></div>
+    <main v-if="recommendedTrack" id="spotify-player">
+        <section id="player-info" v-if="currentTrack && currentTrack.item">
+            <div class="w-limited pt4 px4">
+                <h2 class="text-m">{{ getTrackName }}</h2>
+                <h3 class="text-xs mb4">{{ getArtistsNames }}</h3>
+                <div class="progress-bar" :style="{ '--progress': getCurrentPlayingProgress }"></div>
+            </div>
         </section>
-        <section id="player-controls" class="flex flex-row justify-between p4">
-            <button class="btn btn-icon-only p0" type="button" @click="onNewSelfie">
-                <span class="icon" v-html="icons.photo"></span>
-                <span class="sr-only"> Take a new Selfie</span>
-            </button>
-            <div class="flex flex-row">
-                <button class="btn btn-icon-only px2 py0" type="button" :disabled="isPlayerReady" @click="onSkipPrevious">
-                    <span class="icon" v-html="icons.skipPrevious"></span>
-                    <span class="sr-only"> Skip to previous track</span>
+        <section id="player-controls">
+            <div class="w-limited flex flex-row justify-between p4">
+                <button class="btn btn-icon-only p0" type="button" @click="onNewSelfie">
+                    <span class="icon" v-html="icons.photo"></span>
+                    <span class="sr-only"> Take a new Selfie</span>
                 </button>
-                <button class="btn btn-icon-only px2 py0" type="button" :disabled="isPlayerReady" @click="onPlayPause">
-                    <span class="icon" v-html="isPlaying ? icons.pause : icons.play"></span>
-                    <span class="sr-only"> Play/Pause track</span>
-                </button>
-                <button class="btn btn-icon-only px2 py0" type="button" :disabled="isPlayerReady" @click="onSkipNext">
-                    <span class="icon" v-html="icons.skipNext"></span>
-                    <span class="sr-only"> Skip to next track</span>
+                <div class="flex flex-row">
+                    <button class="btn btn-icon-only px2 py0" type="button" :disabled="isPlayerReady" @click="onSkipPrevious">
+                        <span class="icon" v-html="icons.skipPrevious"></span>
+                        <span class="sr-only"> Skip to previous track</span>
+                    </button>
+                    <button class="btn btn-icon-only px2 py0" type="button" :disabled="isPlayerReady" @click="onPlayPause">
+                        <span class="icon" v-html="isPlaying ? icons.pause : icons.play"></span>
+                        <span class="sr-only"> Play/Pause track</span>
+                    </button>
+                    <button class="btn btn-icon-only px2 py0" type="button" :disabled="isPlayerReady" @click="onSkipNext">
+                        <span class="icon" v-html="icons.skipNext"></span>
+                        <span class="sr-only"> Skip to next track</span>
+                    </button>
+                </div>
+                <button class="btn btn-icon-only p0" type="button" :disabled="!player || !currentTrack" @click="onSaveTrack">
+                    <span class="icon" v-html="isCurrentTrackSaved ? icons.favorite : icons.makeFavorite"></span>
+                    <span class="sr-only"> Save track in ‘Your Music’ library</span>
                 </button>
             </div>
-            <button class="btn btn-icon-only p0" type="button" :disabled="!player || !currentTrack" @click="onSaveTrack">
-                <span class="icon" v-html="isCurrentTrackSaved ? icons.favorite : icons.makeFavorite"></span>
-                <span class="sr-only"> Save track in ‘Your Music’ library</span>
-            </button>
         </section>
-    </article>
+    </main>
 </template>
 
 <script>

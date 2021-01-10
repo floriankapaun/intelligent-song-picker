@@ -1,5 +1,5 @@
 <template>
-  <main id="home" class="p4">
+  <main id="home" class="w-limited p4">
       <h1 class="mb4">Not in the mood for endless choice?</h1>
       <p class="mb3">We try to play the perfect song for you personally, your mood and environment.</p>
       <a href="/api/v1/login" class="inline-block no-decoration">

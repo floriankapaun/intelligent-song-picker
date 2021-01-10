@@ -56,4 +56,16 @@
 
 .p4 { padding: 1.6rem; }
 
+.pt4 { padding-top: 1.6rem; }
+
+.py4 {
+    padding-top: 1.6rem;
+    padding-bottom: 1.6rem;
+}
+
+.px4 {
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+}
+
 .p6 { padding: 2.4rem; }
