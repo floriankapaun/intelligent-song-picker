@@ -32,3 +32,10 @@ Run local server
 Or install nodemon for hot reloading and run
 
     nodemon -r esm main.js
+
+
+
+
+https://brendansudol.com/faces/
+- Blazeface
+- Model Emotion Detection

@@ -58,6 +58,32 @@ module.exports = (env) => {
                     test: /\.vue$/,
                     loader: "vue-loader",
                 },
+                {
+                    test: /\.json$/i,
+                    type: 'javascript/auto',
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                publicPath: '/',
+                            }
+                        },
+                    ],
+                },
+                {
+                    test: /(group).*(-shard).*$/,
+                    type: 'javascript/auto',
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                publicPath: '/',
+                                outputPath: 'static',
+                                name: '[name].[ext]',
+                            }
+                        },
+                    ],
+                },
             ],
         },
         plugins: [

@@ -21,37 +21,17 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@tensorflow-models/blazeface@0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@tensorflow-models/blazeface/-/blazeface-0.0.5.tgz#6261fcc5de61a283ea409b69f6a851f44a809826"
-  integrity sha512-bIMJDV2CD8rr7v9OrIDdDZVh9sbk0EhlZdHaDFpgWUw3Lp21wUN7GSifOJVE5hV2ngmpzM+J12OH8bG1GZoDag==
+"@tensorflow-models/blazeface@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@tensorflow-models/blazeface/-/blazeface-0.0.6.tgz#dd17e9c1a8accc1be1af7fc5e640ea3b40ed8568"
+  integrity sha512-KIoratAtRymLk1G7b1yorwmHa5R4wMOJc8q9g98bhin0AFbt9Q+Iv7c1raHqAAC66h4HZxCrUbj6f60uIGe6aA==
 
-"@tensorflow-models/face-landmarks-detection@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@tensorflow-models/face-landmarks-detection/-/face-landmarks-detection-0.0.1.tgz#70b9d87bed11ecbd166dc6880a2a7b4a3d71a353"
-  integrity sha512-81x+xC/oG3n4cgJhCVFYoPxUcCfkqgdq95z1h0mUa8QrEC5iASAUJt10mRzjTTtN8l71r+S03U/TBG/8ut2PDA==
-  dependencies:
-    "@tensorflow-models/blazeface" "0.0.5"
-    rimraf "^3.0.2"
-
-"@tensorflow/tfjs-backend-cpu@2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-backend-cpu/-/tfjs-backend-cpu-2.4.0.tgz#c4f539e63cdd888dd46c56de0c5cb445458574e1"
-  integrity sha512-obA7IOL2teqoVguQ8EKSrfOu7ypAWQdGiTx/QfSmyaqXc9Z3YSZ1Nx0W4yWeLMJkNsp/EjYvBDeuNRenaFg0Gg==
+"@tensorflow/tfjs-backend-cpu@^2.8.3":
+  version "2.8.3"
+  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-backend-cpu/-/tfjs-backend-cpu-2.8.3.tgz#73a6c7196b4a6ac78aa1ef2615b0b14fa5924f3c"
+  integrity sha512-kMUONKdIknwacUZPR1hIKVba1F8gyiYr7NpzNOf/L7y5li87iRVBcMtYoNn/dEfJ8R/wO6SDeYlDRuDcXXNFlA==
   dependencies:
     "@types/seedrandom" "2.4.27"
-    seedrandom "2.4.3"
-
-"@tensorflow/tfjs-backend-webgl@2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-backend-webgl/-/tfjs-backend-webgl-2.4.0.tgz#27b3b5c8a4066ad6437a83b2fb92b1871b9234b6"
-  integrity sha512-/wh2CmZ3G7XrzsYIg7C2/Wt/QxKpVOfm0yDI5eDrOBoaC+kUsD4avJTS64pCWOdAYSN3yHHJxWO7IySuRlw4+Q==
-  dependencies:
-    "@tensorflow/tfjs-backend-cpu" "2.4.0"
-    "@types/offscreencanvas" "~2019.3.0"
-    "@types/seedrandom" "2.4.27"
-    "@types/webgl-ext" "0.0.30"
-    "@types/webgl2" "0.0.4"
     seedrandom "2.4.3"
 
 "@tensorflow/tfjs-converter@2.4.0":
@@ -59,17 +39,21 @@
   resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-converter/-/tfjs-converter-2.4.0.tgz#1093a35366d9395985bd66f01609d4c77b112077"
   integrity sha512-H16ydhoN/Ah7jd1NO4VUs8UGYbVs77yzUrTIGzras1ios2vsBMwFDC7+boIEekF+O/BcOgu26LtiU8n5hB4lrw==
 
-"@tensorflow/tfjs-core@2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-core/-/tfjs-core-2.4.0.tgz#233c6902c78fe87476b29563afee45e27407d378"
-  integrity sha512-2SJ4PG56e1hixcwdT0oWcfaAe0tfJU+WAKHVeQP1xor4bzPDE8N7LCnRdYWTXbl5mNXRZ9h5qb+XtGEQrcUrJg==
+"@tensorflow/tfjs-core@^2.8.3":
+  version "2.8.3"
+  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-core/-/tfjs-core-2.8.3.tgz#a8e74d1fca4285950387a7bf88994a8f24c42421"
+  integrity sha512-wbVuT7clJZIvtYcJPtIX4M49xCC/ccWpHIN+jRWoSBZxR3PJJ9pkh36nBq65aaBsdr5SL6v02oQ2vc7jfjdI3Q==
   dependencies:
     "@types/offscreencanvas" "~2019.3.0"
     "@types/seedrandom" "2.4.27"
     "@types/webgl-ext" "0.0.30"
-    "@types/webgl2" "0.0.4"
-    node-fetch "~2.1.2"
+    node-fetch "~2.6.1"
     seedrandom "2.4.3"
+
+"@tensorflow/tfjs-layers@^2.8.3":
+  version "2.8.3"
+  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-layers/-/tfjs-layers-2.8.3.tgz#75edd3c16ec887f643a1a20fa61670a5da84ffaa"
+  integrity sha512-nl3GnLCqofFnswcPjXV+u5P7GLUCQh0xFKVXnjIGPFIemttQNG0BYSVL18EIV53fnMEv9RZ9mC4DF2LgvWg3yg==
 
 "@types/anymatch@*":
   version "1.3.1"
@@ -156,11 +140,6 @@
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/webgl-ext/-/webgl-ext-0.0.30.tgz#0ce498c16a41a23d15289e0b844d945b25f0fb9d"
   integrity sha512-LKVgNmBxN0BbljJrVUwkxwRYqzsAEPcZOe6S2T6ZaBDIrFp0qu4FNlpc5sM1tGbXUYFgdVQIoeLk1Y1UoblyEg==
-
-"@types/webgl2@0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@types/webgl2/-/webgl2-0.0.4.tgz#c3b0f9d6b465c66138e84e64cb3bdf8373c2c279"
-  integrity sha512-PACt1xdErJbMUOUweSrbVM7gSIYm1vTncW2hF6Os/EeWi6TXYAYMPp+8v6rzHmypE5gHrxaxZNXgMkJVIdZpHw==
 
 "@types/webpack-sources@*":
   version "2.0.0"
@@ -2631,10 +2610,10 @@ no-case@^3.0.3:
     lower-case "^2.0.1"
     tslib "^1.10.0"
 
-node-fetch@~2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.1.2.tgz#ab884e8e7e57e38a944753cec706f788d1768bb5"
-  integrity sha1-q4hOjn5X44qUR1POxwb3iNF2i7U=
+node-fetch@~2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
+  integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
 node-forge@^0.10.0:
   version "0.10.0"
@@ -3314,13 +3293,6 @@ rimraf@^2.6.3:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.7.1.tgz#35797f13a7fdadc566142c29d4f07ccad483e3ec"
   integrity sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==
-  dependencies:
-    glob "^7.1.3"
-
-rimraf@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-3.0.2.tgz#f1a5402ba6220ad52cc1282bac1ae3aa49fd061a"
-  integrity sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
   dependencies:
     glob "^7.1.3"
 

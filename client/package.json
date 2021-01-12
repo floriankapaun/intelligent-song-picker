@@ -11,10 +11,11 @@
     "build": "webpack --env mode=production"
   },
   "dependencies": {
-    "@tensorflow-models/face-landmarks-detection": "0.0.1",
-    "@tensorflow/tfjs-backend-webgl": "2.4.0",
+    "@tensorflow-models/blazeface": "^0.0.6",
+    "@tensorflow/tfjs-backend-cpu": "^2.8.3",
     "@tensorflow/tfjs-converter": "2.4.0",
-    "@tensorflow/tfjs-core": "2.4.0",
+    "@tensorflow/tfjs-core": "^2.8.3",
+    "@tensorflow/tfjs-layers": "^2.8.3",
     "core-js": "^3.8.0",
     "focus-trap": "^6.2.3",
     "vue": "^3.0.3",
