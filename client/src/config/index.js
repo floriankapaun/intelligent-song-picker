@@ -6,4 +6,15 @@ module.exports = {
     COOKIE_NAME_SPOTIFY_AUTH_ERROR: 'SPOTIFY_AUTH_ERROR',
     SPOTIFY_API_URL: 'https://api.spotify.com/v1/me',
     SPOTIFY_WEB_PLAYBACK_SDK_SCRIPT_ID: 'spotify-web-playback-sdk-script',
-}
+    TF_BACKEND: 'cpu',
+    EMOTION: {
+        0: 'Angry',
+        1: 'Disgust',
+        2: 'Fear',
+        3: 'Happy',
+        4: 'Sad',
+        5: 'Surprise',
+        6: 'Neutral',
+    },
+    CLASSIFIER_IMG_DIMENSIONS: [48, 48],
+};
