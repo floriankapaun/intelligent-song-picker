@@ -47,6 +47,7 @@ export default {
         };
         // Setup listener for imageWorker
         imageWorker.worker.onmessage = (event) => {
+            console.log(event.data);
             spotifyWorker.send({
                 accessToken: this.spotify.auth.accessToken,
                 parameters: event.data,

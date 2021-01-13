@@ -36,7 +36,6 @@ addEventListener('message', async (event) => {
     const selfieColorfulness = increaseValueDynamics(getColorfulness(rg, yb), 30, 0.1, 1);
 
     const selfieMood = await getMostRepresentedEmotion(selfie);
-    console.log(selfieMood);
 
     /**
      * Has to return values that get mapped to the following audio parameters:
@@ -51,9 +50,10 @@ addEventListener('message', async (event) => {
      * valence: detectedEmotion
      */
     postMessage({
-        brightness: selfieBrightness,
-        colorfulness: selfieColorfulness,
-        contrast: selfieStandardDeviation,
+        brightness: selfieBrightness.toFixed(2),
+        colorfulness: selfieColorfulness.toFixed(2),
+        contrast: selfieStandardDeviation.toFixed(2),
+        mood: selfieMood,
     });
 });
 
