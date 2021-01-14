@@ -34,25 +34,38 @@ export const getFaces = async (img) => {
     const model = await blazeface.load();
     // Predict and return face position(s)
     const returnTensors = false;
-    const flipHorizontal = true;
-    const annotateBoxes = true;
-    return model.estimateFaces(img, returnTensors, flipHorizontal, annotateBoxes);
+    const flipHorizontal = false;
+    const annotateBoxes = false;
+    const facePositions = await model.estimateFaces(img, returnTensors, flipHorizontal, annotateBoxes);
+    // The current face positions are rectangular probably not square as we need them to be.
+    // In order to prevent stretching we'll increase the size get squares.
+    for (const position of facePositions) {
+        const topLeft = [position.topLeft[1], position.topLeft[0]];
+        const bottomRight = [position.bottomRight[1], position.bottomRight[0]];
+        const width = bottomRight[1] - topLeft[1];
+        const height = bottomRight[0] - topLeft[0]
+        const difference = width - height;
+        position.topLeft[1] -= (difference / 2);
+        position.bottomRight[1] += (difference / 2);
+    }
+    return facePositions
 };
 
 export const getFaceImage = async (img, position) => {
     // Get image dimensions [height, width]
     const imgDimensions = img.shape.slice(1, 3);
+    // Switch x and y values
+    const topLeft = [position.topLeft[1], position.topLeft[0]];
+    const bottomRight = [position.bottomRight[1], position.bottomRight[0]];
     // Normalize topLeft and bottomRight position
-    const normalizedTopLeft = tf.div(position.topLeft, imgDimensions);
-    const normalizedBottomRight = tf.div(position.bottomRight, imgDimensions);
+    const normalizedTopLeft = tf.div(topLeft, imgDimensions).dataSync();
+    const normalizedBottomRight = tf.div(bottomRight, imgDimensions).dataSync();
     // Configure box to crop by
     const box = tf.concat([normalizedTopLeft, normalizedBottomRight]).expandDims(0);
     // Crop image to face only (box) and resize to correct dimensions for classifier
     const faceImage = tf.image.cropAndResize(img, box, [0], c.CLASSIFIER_IMG_DIMENSIONS);
-    // Normalize color values from [0, 255] to [-1, 1].
-    const normalizedFaceImage = faceImage
-        .sub(tf.scalar(127.5))
-        .div(tf.scalar(127.5));
+    // Normalize color values from [0, 255] to [0, 1].
+    const normalizedFaceImage = faceImage.div(tf.scalar(255));
     // Convert normalizedFaceImage to grayscale. Therefore compute
     // mean of R, G, and B values, then expand dimensions to get
     // propper shape: [1, height, width, 1]
