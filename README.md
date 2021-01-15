@@ -18,6 +18,10 @@ Run local server
 
     yarn serve
 
+Or create a build for deployment in production
+
+    yarn build
+
 ### Server
 
 Install dependencies
@@ -25,13 +29,13 @@ Install dependencies
     cd server
     yarn install
 
-Run local server
+Run local nodemon server with hotreloading
 
-    node -r esm main.js
+    yarn serve
 
-Or install nodemon for hot reloading and run
+Or run production server on node only
 
-    nodemon -r esm main.js
+    yarn production
 
 
 

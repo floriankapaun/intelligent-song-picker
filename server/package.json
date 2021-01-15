@@ -7,6 +7,10 @@
   "author": "Florian Kapaun <hello@florian-kapaun.de>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "serve": "nodemon -r esm main.js",
+    "production": "node -r esm main.js"
+  },
   "dependencies": {
     "connect-history-api-fallback": "^1.6.0",
     "cookie-parser": "^1.4.5",
@@ -14,8 +18,11 @@
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
+    "node": "^15.4.0",
     "querystring": "^0.2.0",
     "request": "^2.88.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
