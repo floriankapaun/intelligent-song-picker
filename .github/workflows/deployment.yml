@@ -23,9 +23,9 @@ jobs:
           yarn build
           cd ../
           rm -r ../../client/*
-          mv client/dist/* ../../client
+          cp -R client/dist/* ../../client
           rm -r ../../server/*
-          mv server/* ../../server
+          cp -R server/* ../../server
           cd ../../server
           yarn install
           supervisorctl restart isp_server
