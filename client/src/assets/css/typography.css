@@ -30,5 +30,6 @@ body {
 
 h1 {
     font-size: var(--font-size_xl);
+    font-weight: var(--font-weight_m);
     line-height: var(--line-height_xl);
 }

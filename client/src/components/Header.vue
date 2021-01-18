@@ -1,6 +1,6 @@
 <template>
     <header class="w-limited flex flex-row justify-between p4">
-        <router-link to="/player">ISP</router-link>
+        <router-link to="/player" id="logo">ISP</router-link>
         <button type="button" id="open-menu" ref="openMenu" class="btn btn-icon-only p0" aria-label="Open Navigation Menu" :aria-expanded="isNavigationMenuOpen" @click="openMenu">
             <span class="sr-only">Menu </span>
             <span class="icon" v-html="icons.menu"></span>
@@ -79,6 +79,15 @@ export default {
 };
 </script>
 
-<style lang="css">
-#menu { z-index: 999; }
+<style lang="css" scoped>
+#logo {
+    font-size: var(--font-size_m);
+    font-weight: var(--font-weight_m);
+    color: inherit;
+    text-decoration: none;
+}
+
+#menu {
+    z-index: 999;
+}
 </style>
