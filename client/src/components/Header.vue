@@ -1,6 +1,6 @@
 <template>
     <header class="w-limited flex flex-row justify-between p4">
-        <router-link to="/player" id="logo">ISP</router-link>
+        <router-link :to="$route.params.isAuthenticated ? 'player' : 'home'" id="logo">ISP</router-link>
         <button type="button" id="open-menu" ref="openMenu" class="btn btn-icon-only p0" aria-label="Open Navigation Menu" :aria-expanded="isNavigationMenuOpen" @click="openMenu">
             <span class="sr-only">Menu </span>
             <span class="icon" v-html="icons.menu"></span>
@@ -12,8 +12,11 @@
                     <span class="icon" v-html="icons.close"></span>
                 </button>
                 <nav class="flex flex-col align-center text-xl text-center">
-                    <router-link accesskey="h" to="/" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
+                    <router-link v-if="!$route.params.isAuthenticated" accesskey="h" to="/" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                         Home
+                    </router-link>
+                    <router-link v-else accesskey="p" to="/player" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
+                        Player
                     </router-link>
                     <router-link accesskey="a" to="about" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                         About
@@ -21,7 +24,7 @@
                     <router-link v-if="$route.params.isAuthenticated" accesskey="l" to="logout" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                         Logout
                     </router-link>
-                    <a v-if="!$route.params.isAuthenticated" accesskey="l" href="/api/v1/login" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
+                    <a v-else accesskey="l" href="/api/v1/login" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                         Login
                     </a>
                 </nav>
