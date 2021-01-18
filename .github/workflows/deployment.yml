@@ -1,0 +1,21 @@
+name: Deployment Workflow
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: deploying to intelligent-song-picker.com server via ssh connection
+      uses: appleboy/ssh-action@master
+      with:
+        host: aoede.uberspace.de
+        username: kapaun
+        key: ${{ secrets.ISP_SECRET }}
+        port: 22
+        script: |
+          cd /var/www/virtual/kapaun/intelligent-song-picker.com/_repository
+          git pull main
+          git status
