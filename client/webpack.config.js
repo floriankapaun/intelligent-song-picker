@@ -89,10 +89,10 @@ module.exports = (env) => {
         plugins: [
             new CleanWebpackPlugin(),
             new HtmlWebpackPlugin({
-                title: 'ISP - intelligent song picker',
+                title: 'ISP – intelligent song picker',
                 template: 'src/index.handlebars',
                 templateParameters: {
-                    title: 'ISP - intelligent song picker',
+                    title: 'ISP – intelligent song picker',
                 },
                 scriptLoading: 'defer',
                 hash: true,
