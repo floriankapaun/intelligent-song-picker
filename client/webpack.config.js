@@ -89,10 +89,10 @@ module.exports = (env) => {
         plugins: [
             new CleanWebpackPlugin(),
             new HtmlWebpackPlugin({
-                title: 'Facial Spotify Controller',
+                title: 'ISP - intelligent song picker',
                 template: 'src/index.handlebars',
                 templateParameters: {
-                    title: 'Facial Spotify Controller',
+                    title: 'ISP - intelligent song picker',
                 },
                 scriptLoading: 'defer',
                 hash: true,

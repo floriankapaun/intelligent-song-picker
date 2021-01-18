@@ -1,8 +1,8 @@
 {
-  "name": "facial-spotify-controller",
+  "name": "isp",
   "version": "1.0.0",
   "private": true,
-  "repository": "https://github.com/floriankapaun/facial-spotify-controller.git",
+  "repository": "https://github.com/floriankapaun/intelligent-song-picker.git",
   "author": "Florian Kapaun <hello@florian-kapaun.de>",
   "license": "MIT",
   "scripts": {

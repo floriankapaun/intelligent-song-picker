@@ -1,9 +1,9 @@
 {
-  "name": "facial-spotify-controller-server",
+  "name": "isp",
   "version": "1.0.0",
-  "description": "Server for the Facial Spotify Controller App",
+  "description": "intelligent-song-picker",
   "main": "main.js",
-  "repository": "https://github.com/floriankapaun/facial-spotify-controller.git",
+  "repository": "https://github.com/floriankapaun/intelligent-song-picker.git",
   "author": "Florian Kapaun <hello@florian-kapaun.de>",
   "license": "MIT",
   "private": true,
