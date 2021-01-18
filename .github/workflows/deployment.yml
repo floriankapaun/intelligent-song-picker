@@ -16,6 +16,16 @@ jobs:
         key: ${{ secrets.ISP_SECRET }}
         port: 22
         script: |
-          cd /var/www/virtual/kapaun/intelligent-song-picker.com/_repository
-          git pull main
-          git status
+          cd /var/www/virtual/kapaun/intelligent-song-picker.com/_repository/intelligent-song-picker/
+          git pull
+          cd client
+          yarn install
+          yarn build
+          cd ../
+          rm -r ../../client/*
+          mv client/dist/* ../../client
+          rm -r ../../server/*
+          mv server/* ../../server
+          cd ../../server
+          yarn install
+          supervisorctl restart isp_server
