@@ -18,9 +18,12 @@
                     <router-link accesskey="a" to="about" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                         About
                     </router-link>
-                    <router-link accesskey="l" to="logout" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
+                    <router-link v-if="$route.params.isAuthenticated" accesskey="l" to="logout" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                         Logout
                     </router-link>
+                    <a v-if="!$route.params.isAuthenticated" accesskey="l" href="/api/v1/login" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
+                        Login
+                    </a>
                 </nav>
             </section>
             <section class="w-limited flex flex-row flex-wrap justify-between align-center text-xs p4">

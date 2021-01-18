@@ -18,7 +18,8 @@ const routes = [
         meta: {
             // makes the page only available to not authenticated users
             guest: true,
-        }
+        },
+        props: true,
     },
     {
         path: '/player',
@@ -26,12 +27,14 @@ const routes = [
         component: Main,
         meta: {
             requiresAuth: true
-        }
+        },
+        props: true,
     },
     {
         path: '/about',
         name: 'about',
         component: About,
+        props: true,
     },
     {
         path: '/logout',
@@ -39,22 +42,26 @@ const routes = [
         component: Logout,
         meta: {
             requiresAuth: true
-        }
+        },
+        props: true,
     },
     {
         path: '/imprint',
         name: 'imprint',
         component: Imprint,
+        props: true,
     },
     {
         path: '/data-privacy',
         name: 'data-privacy',
         component: DataPrivacy,
+        props: true,
     },
     {
         path: '/404',
         name: '404',
         component: NotFound,
+        props: true,
     },
     { path: '/:catchAll(.*)', redirect: '/404' }
 ];
@@ -68,17 +75,23 @@ router.beforeEach((to, from, next) => {
     /**
      * Handle authentication
      */
+    const isAuthenticated = getCookie('SPOTIFY_ACCESS_TOKEN') && getCookie('SPOTIFY_REFRESH_TOKEN')
+        ? true
+        : false;
+
+    to.params.isAuthenticated = isAuthenticated;
+
     if (to.matched.some((record) => record.meta.requiresAuth)) {
-        if (!getCookie('SPOTIFY_ACCESS_TOKEN') && !getCookie('SPOTIFY_REFRESH_TOKEN')) {
-            next({ path: '/' });
+        if (!isAuthenticated) {
+            next({ path: '/', params: { isAuthenticated } });
         } else {
             next();
         }
     } else if (to.matched.some((record) => record.meta.guest)) {
-        if (!getCookie('SPOTIFY_ACCESS_TOKEN') && !getCookie('SPOTIFY_REFRESH_TOKEN')) {
+        if (!isAuthenticated) {
             next();
         } else {
-            next({ path: '/player' });
+            next({ path: '/player', params: { isAuthenticated } });
         }
     } else {
         next();
