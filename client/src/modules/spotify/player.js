@@ -20,6 +20,7 @@ class SpotifyPlayer {
             player: false,
             connection: undefined,
             playback: undefined,
+            mobileWorkaround: false,
         }
         this.currentTrack = undefined;
         this._init();
@@ -51,11 +52,7 @@ class SpotifyPlayer {
         // TODO: Add functionality to those (error) listeners
 
         // Error handling
-        player.addListener('initialization_error', ({ message }) => {
-            // FIXME: Spotify Web Playback SDK is not supported on any mobile devices
-            // Either use links to the spotify App or a Spotify Widget or a device selection and try to play on that device
-            console.error('INIT', message);
-        });
+        player.addListener('initialization_error', ({ message }) => this.initMobileWorkaround);
         player.addListener('authentication_error', async ({ message }) => {
             // If the authentication of the spotify WebPlaybackSDK failed, its probably due to
             // an expired accessToken. In that case, refresh the accessToken provided by spotifyAuth
@@ -84,7 +81,7 @@ class SpotifyPlayer {
     }
 
     isReady() {
-        const state = this.state.player && this.state.connection;
+        const state = (this.state.player && this.state.connection) || this.state.mobileWorkaround;
         return state ? true : false;
     }
 
@@ -117,6 +114,13 @@ class SpotifyPlayer {
                     return this.currentTrack;
                 }
             })
+            .catch((error) => console.error(error));
+    }
+
+    getDevices() {
+        console.log('called get devices');
+        return fetch(`${c.SPOTIFY_API_URL}/player/devices`, { ...defaultHeaders })
+            .then((response) => response.json())
             .catch((error) => console.error(error));
     }
 
@@ -204,6 +208,29 @@ class SpotifyPlayer {
                 return response;
             })
             .catch((error) => console.error(error));
+    }
+
+    async initMobileWorkaround() {
+        // Spotify Web Playback SDK is not supported on any mobile devices
+        // Therefore I put this dirty workaround in place which searches for another Spotify device
+        // preferably a smartphone to play the song on.
+        // Alternatives to consider: Either use links to the spotify App or a Spotify Widget
+        console.warn('INIT', message);
+        const response = await this.getDevices();
+        console.log('RESP', response);
+        const devices = response.devices;
+        if (devices && devices.length > 0) {
+            this.state.mobileWorkaround = true;
+            // Search for a smartphone on which to play the songs
+            const smartphone = devices.find((device) => device.type === 'Smartphone');
+            if (smartphone) {
+                this.deviceId = smartphone.id;
+            } else { 
+                this.deviceId = devices[0].id;
+            }
+        } else {
+            console.error('SPOTIFY WEB PLAYBACK SDK ISN\'T WORKING ON YOUR DEVICE AND THERE IS NO OTHER DEVIE WE COULD USE');
+        }
     }
 }
 
