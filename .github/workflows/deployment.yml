@@ -16,16 +16,14 @@ jobs:
         key: ${{ secrets.ISP_SECRET }}
         port: 22
         script: |
+          shopt -s extglob
           cd /var/www/virtual/kapaun/intelligent-song-picker.com/_repository/intelligent-song-picker/
           git pull
-          cd client
-          yarn install
-          yarn build
-          cd ../
+          yarn --cwd client install
+          yarn --cwd client build
           rm -r ../../client/*
           cp -R client/dist/* ../../client
-          rm -r ../../server/*
+          rm -r '../../server/!(.env|node_modules)'
           cp -R server/* ../../server
-          cd ../../server
-          yarn install
+          yarn --cwd ../../server install
           supervisorctl restart isp_server
