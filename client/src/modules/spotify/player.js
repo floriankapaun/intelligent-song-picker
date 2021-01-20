@@ -104,12 +104,18 @@ class SpotifyPlayer {
         return fetch(`${c.SPOTIFY_API_URL}/player/currently-playing`, { ...defaultHeaders })
             .then((response) => response.json())
             .then(async (data) => {
-                this.currentTrack = data;
-                // Check if the currentTrack is already saved to users library.
-                const isSaved = await this.isCurrentTrackSaved();
-                // Save that info to the currentTrack Object
-                this.currentTrack.isSaved = isSaved;
-                return this.currentTrack;
+                // If the current track wasn't returned by spotify, try again after 100 ms
+                if (!data.item) {
+                    await new Promise((resolve) => setTimeout(resolve, 100));
+                    this.getCurrentTrack();
+                } else {
+                    this.currentTrack = data;
+                    // Check if the currentTrack is already saved to users library.
+                    const isSaved = await this.isCurrentTrackSaved();
+                    // Save that info to the currentTrack Object
+                    this.currentTrack.isSaved = isSaved;
+                    return this.currentTrack;
+                }
             })
             .catch((error) => console.error(error));
     }
