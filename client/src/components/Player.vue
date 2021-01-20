@@ -175,12 +175,12 @@ export default {
     },
     mounted() {
         // Add listener for changes of the spotify players playbackState
-        // TODO: Wait for player.player to exist
-        // FIXME: Move that stuff into spotifyPlayer.js
-        this.spotify.player.player.addListener('player_state_changed', (state) => {
-            this.playbackState = state;
-            this.spotify.player.state.playback = state;
-        });
+        if (this.player && this.player.player) {
+            this.spotify.player.player.addListener('player_state_changed', (state) => {
+                this.playbackState = state;
+                this.spotify.player.state.playback = state;
+            });
+        }
     },
 }
 </script>
