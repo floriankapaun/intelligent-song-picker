@@ -8,8 +8,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "serve": "nodemon -r esm main.js",
-    "production": "node -r esm main.js"
+    "serve": "nodemon -r esm main.js --env PRODUCTION=false",
+    "production": "node -r esm main.js --env PRODUCTION=true"
   },
   "dependencies": {
     "connect-history-api-fallback": "^1.6.0",
