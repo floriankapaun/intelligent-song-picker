@@ -8,3 +8,7 @@ body {
     color: var(--ink);
     background-color: var(--paper);
 }
+
+a {
+    color: inherit;
+}
