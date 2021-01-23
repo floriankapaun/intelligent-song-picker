@@ -113,6 +113,9 @@ module.exports = (env) => {
             path: path.resolve(__dirname, 'dist'),
             publicPath: '',
         },
+        optimization: {
+            minimize: mode === 'development' ? false : true,
+        },
     };
 
     if (mode === 'development') { 
