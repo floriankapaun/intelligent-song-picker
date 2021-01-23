@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 const HtmlInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 
 
 const PORT = 3008;
@@ -101,6 +102,7 @@ module.exports = (env) => {
             }),
             new HtmlInlineCSSWebpackPlugin(),
             new VueLoaderPlugin(),
+            new CompressionPlugin(),
         ],
         resolve: {
             alias: {
