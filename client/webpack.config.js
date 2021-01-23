@@ -3,8 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
-const HtmlInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').default;
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 
 
@@ -35,8 +33,6 @@ module.exports = (env) => {
                     use: [
                         'style-loader',
                         'css-loader',
-                        // 'postcss-loader',
-                        // 'sass-loader',
                     ],
                 },
                 {
@@ -100,7 +96,7 @@ module.exports = (env) => {
                 scriptLoading: 'defer',
                 hash: true,
             }),
-            new HtmlInlineCSSWebpackPlugin(),
+            new MiniCssExtractPlugin(),
             new VueLoaderPlugin(),
             new CompressionPlugin({
                 filename: '[path][base].gz',
@@ -117,17 +113,10 @@ module.exports = (env) => {
             path: path.resolve(__dirname, 'dist'),
             publicPath: '',
         },
-        optimization: {
-            minimizer: [
-              new CssMinimizerPlugin(),
-            ],
-        },
     };
 
     if (mode === 'development') { 
         config.devtool = 'inline-source-map';
-    } else if (mode === 'production') {
-        config.plugins.push(new MiniCssExtractPlugin());
     }
 
     return config;
