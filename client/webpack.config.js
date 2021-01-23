@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
+const HtmlInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 
 const PORT = 3008;
@@ -97,6 +99,7 @@ module.exports = (env) => {
                 scriptLoading: 'defer',
                 hash: true,
             }),
+            new HtmlInlineCSSWebpackPlugin(),
             new VueLoaderPlugin(),
         ],
         resolve: {
@@ -109,6 +112,11 @@ module.exports = (env) => {
             filename: '[name].bundle.js',
             path: path.resolve(__dirname, 'dist'),
             publicPath: '',
+        },
+        optimization: {
+            minimizer: [
+              new CssMinimizerPlugin(),
+            ],
         },
     };
 
