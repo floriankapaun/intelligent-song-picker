@@ -20,9 +20,59 @@
   #bg {
     width: 100%;
     height: 100%;
-    background-image: url('@/assets/img/spotify-top-75-album-covers-2020.png');
+    background-image: url('@/assets/img/bg/spotify-top-75-album-covers-2020.mobile.300.jpg');
+    background-image: -webkit-image-set(
+      url('@/assets/img/bg/spotify-top-75-album-covers-2020.mobile.300.jpg') 1x,
+      url('@/assets/img/bg/spotify-top-75-album-covers-2020.mobile.500.jpg') 2x  
+    );
+    background-image: image-set(
+      url('@/assets/img/bg/spotify-top-75-album-covers-2020.mobile.300.jpg') 1x,
+      url('@/assets/img/bg/spotify-top-75-album-covers-2020.mobile.500.jpg') 2x
+    );
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+  }
+
+  @media(min-width: 600px) {
+    #bg {
+      background-image: url('@/assets/img/bg/spotify-top-75-album-covers-2020.tablet.600.jpg');
+      background-image: -webkit-image-set(
+        url('@/assets/img/bg/spotify-top-75-album-covers-2020.tablet.600.jpg') 1x,
+        url('@/assets/img/bg/spotify-top-75-album-covers-2020.tablet.1200.jpg') 2x  
+      );
+      background-image: image-set(
+        url('@/assets/img/bg/spotify-top-75-album-covers-2020.tablet.600.jpg') 1x,
+        url('@/assets/img/bg/spotify-top-75-album-covers-2020.tablet.1200.jpg') 2x
+      );
+    }
+  }
+
+  @media (min-width: 1200px) {
+    #bg {
+      background-image: url('@/assets/img/bg/spotify-top-75-album-covers-2020.desktop.1200.jpg');
+      background-image: -webkit-image-set(
+        url('@/assets/img/bg/spotify-top-75-album-covers-2020.desktop.1200.jpg') 1x,
+        url('@/assets/img/bg/spotify-top-75-album-covers-2020.desktop.1600.jpg') 2x  
+      );
+      background-image: image-set(
+        url('@/assets/img/bg/spotify-top-75-album-covers-2020.desktop.1200.jpg') 1x,
+        url('@/assets/img/bg/spotify-top-75-album-covers-2020.desktop.1600.jpg') 2x
+      );
+    }
+  }
+
+  @media (min-width: 1500px) {
+    #bg {
+      background-image: url('@/assets/img/bg/spotify-top-75-album-covers-2020.desktop.1600.jpg');
+      background-image: -webkit-image-set(
+        url('@/assets/img/bg/spotify-top-75-album-covers-2020.desktop.1600.jpg') 1x,
+        url('@/assets/img/bg/spotify-top-75-album-covers-2020.desktop.2000.jpg') 2x  
+      );
+      background-image: image-set(
+        url('@/assets/img/bg/spotify-top-75-album-covers-2020.desktop.1600.jpg') 1x,
+        url('@/assets/img/bg/spotify-top-75-album-covers-2020.desktop.2000.jpg') 2x
+      );
+    }
   }
 </style>
