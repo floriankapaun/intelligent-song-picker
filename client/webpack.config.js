@@ -27,11 +27,11 @@ module.exports = (env) => {
         module: {
             rules: [
                 {
-                    test: /\.handlebars$/,
+                    test: /\.handlebars$/i,
                     loader: 'handlebars-loader',
                 },
                 {
-                    test: /\.(sa|sc|c)ss$/,
+                    test: /\.(sa|sc|c)ss$/i,
                     use: [
                         mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
                         'css-loader',
@@ -68,6 +68,7 @@ module.exports = (env) => {
                         {
                             loader: 'file-loader',
                             options: {
+                                name: 'model/[name].[contenthash].[ext]',
                                 publicPath: '/',
                             }
                         },
@@ -81,8 +82,7 @@ module.exports = (env) => {
                             loader: 'file-loader',
                             options: {
                                 publicPath: '/',
-                                outputPath: 'static',
-                                name: '[name].[ext]',
+                                name: 'model/[name].[ext]',
                             }
                         },
                     ],
@@ -113,7 +113,7 @@ module.exports = (env) => {
             },
         },
         output: {
-            filename: '[name].bundle.js',
+            filename: 'js/[name].bundle.js',
             path: path.resolve(__dirname, 'dist'),
             publicPath: '',
         },
