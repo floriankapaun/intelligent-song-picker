@@ -1,6 +1,6 @@
 <template>
     <header class="w-limited flex flex-row justify-between p4">
-        <router-link :to="$route.params.isAuthenticated ? 'player' : 'home'" id="logo">ISP</router-link>
+        <router-link :to="$route.params.isAuthenticated ? 'player' : '/'" id="logo">ISP</router-link>
         <button type="button" id="open-menu" ref="openMenu" class="btn btn-icon-only p0" aria-label="Open Navigation Menu" :aria-expanded="isNavigationMenuOpen" @click="openMenu">
             <span class="sr-only">Menu </span>
             <span class="icon" v-html="icons.menu"></span>
