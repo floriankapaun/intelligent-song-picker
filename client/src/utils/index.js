@@ -2,7 +2,7 @@ export const setCookie = (cookieName, cookieValue, daysToExist = 365) => {
     // Encode cookieValue in order to escape semicolons, commas, and whitespace
     const encodedCookieValue = encodeURIComponent(cookieValue);
     const expirationDate = daysToExist * 24 * 60 * 60;
-    document.cookie = `${cookieName}=${encodedCookieValue};max-age=${expirationDate};path=/;`;
+    document.cookie = `${cookieName}=${encodedCookieValue};max-age=${expirationDate};path=/;SameSite=Lax;`;
 };
 
 export const getCookie = (cookieName) => {
