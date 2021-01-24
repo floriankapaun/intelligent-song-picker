@@ -15,7 +15,7 @@
                     <router-link v-if="!$route.params.isAuthenticated" accesskey="h" to="/" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                         Home
                     </router-link>
-                    <router-link v-else accesskey="p" to="/player" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
+                    <router-link v-else accesskey="p" :to="{ name: 'main' }" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                         Player
                     </router-link>
                     <router-link accesskey="a" to="about" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">

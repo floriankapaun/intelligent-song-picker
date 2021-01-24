@@ -83,7 +83,7 @@ router.beforeEach((to, from, next) => {
 
     if (to.matched.some((record) => record.meta.requiresAuth)) {
         if (!isAuthenticated) {
-            next({ path: '/', params: { isAuthenticated } });
+            next({ name: 'home', params: { isAuthenticated } });
         } else {
             next();
         }
@@ -91,7 +91,7 @@ router.beforeEach((to, from, next) => {
         if (!isAuthenticated) {
             next();
         } else {
-            next({ path: '/player', params: { isAuthenticated } });
+            next({ name: 'main', params: { isAuthenticated } });
         }
     } else {
         next();
