@@ -29,14 +29,17 @@
                     </a>
                 </nav>
             </section>
-            <section class="w-limited flex flex-row flex-wrap justify-between align-center text-xs p4">
-                <router-link class="pr2" accesskey="i" to="imprint" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
-                    Imprint
-                </router-link>
-                <p class="pr2">
+            <section class="w-limited flex flex-row flex-wrap justify-between align-center text-xs p3 pb1">
+                <p class="px1 mb2">
                     © 2020 <a href="https://florian-kapaun.de" target="_blank" accesskey="f" :tabindex="isNavigationMenuOpen ? 0 : -1">Florian Kapaun</a>
                 </p>
-                <router-link accesskey="d" to="data-privacy" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
+                <router-link class="px1 mb2" accesskey="i" to="imprint" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
+                    Imprint
+                </router-link>
+                <router-link class="px1 mb2" accesskey="c" :tabindex="isNavigationMenuOpen ? 0 : -1" to="" @click.prevent="closeMenu(); $emit('openCookieConsent')">
+                    Cookie settings
+                </router-link>
+                <router-link class="px1 mb2" accesskey="d" to="data-privacy" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                     Data privacy
                 </router-link>
             </section>
@@ -91,6 +94,6 @@ export default {
 }
 
 #menu {
-    z-index: 999;
+    z-index: 500;
 }
 </style>
