@@ -5,8 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Just take a selfie. ISP will then play the right song for your musical taste, mood and environment. Try now! 🎶">
     <title>{{ title }}</title>
+    <style>
+        #placeholder {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #181818;
+            color: #fff;
+        }
+        .loading-animation {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .loading-animation .dots {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        
+        .loading-animation .dots span {
+            display: inline-block;
+            width: 0.8rem;
+            height: 0.8rem;
+            margin: 0.4rem;
+            background-color: #fff;
+            border-radius: 100%;
+            animation: float 1.8s infinite;
+        }
+        
+        .loading-animation .dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .loading-animation .dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(4px);
+            }
+            50% {
+                transform: translateY(-4px);
+            }
+        }
+    </style>
 </head>
 <body>
-    <div id="app"></div>
+    
+    <div id="app">
+        {{!-- Will be removed if vue app has loaded --}}
+        <main id="placeholder">
+            <div class="loading-animation">
+                <div class="dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <p class="text-xs color-ink_light mt2">Loading</p>
+            </div>
+        </main>
+    </div>
 </body>
 </html>
