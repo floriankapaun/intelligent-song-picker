@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 const CompressionPlugin = require('compression-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 
 const PORT = 3008;
@@ -100,6 +101,18 @@ module.exports = (env) => {
             new VueLoaderPlugin(),
             new CompressionPlugin({
                 filename: '[path][base].gz',
+            }),
+            new CopyPlugin({
+                patterns: [
+                    {
+                        from: 'src/assets/img/icon.32.png',
+                        to: 'img/icon.32.png'
+                    },
+                    {
+                        from: 'src/assets/img/spotify-top-75-album-covers-2020.jpg',
+                        to: 'img/spotify-top-75-album-covers-2020.jpg'
+                    },
+                ],
             }),
         ],
         resolve: {
