@@ -1,9 +1,5 @@
 <template>
-    <!-- TODO: Add Focus Trap -->
-    <!-- TODO: Add Cookie Handling -->
-    <!-- TODO: Add Matomo Tracking -->
-    <!-- TODO: Add Style -->
-    <article ref="cookieModal" class="modal" :class="isCookieModalOpen ? 'open' : null" aria-label="Cookie Modal content">
+    <article ref="cookieModal" id="cookieModal" class="modal" :class="isCookieModalOpen ? 'open' : null" aria-label="Cookie Modal content">
         <section class="w-limited flex flex-row justify-between pt4 px4">
             <h2 class="text-m">Cookie Consent</h2>
         </section>
@@ -138,6 +134,10 @@
 </script>
 
 <style lang="css" scoped>
+    #cookieModal {
+        z-index: 999;
+    }
+
     .modal {
         top: unset;
     }

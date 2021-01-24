@@ -1,5 +1,5 @@
 <template>
-    <component-header />
+    <component-header @openCookieConsent="openCookieConsent" />
     <router-view @openCookieConsent="openCookieConsent" />
     <component-cookies ref="cookieConsent" />
 </template>
