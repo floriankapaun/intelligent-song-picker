@@ -2,9 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Just take a selfie. ISP will then play the right song for your musical taste, mood and environment. Try now! 🎶">
+
+    {{!-- Max. 95 chars --}}
+    <meta property="og:title" content="ISP - intelligent song picker">
+    {{!-- Should encourage to click; no keywords; Max. 297 chars! --}}
+    <meta property="og:description" content="Not in the mood for endless choice? All you have to do is take a selfie. ISP will then play the right song for your musical taste, mood and environment."> 
+    {{!-- min. 1200 x 630 pixel with an aspect-ratio of 1,91:1 --}}
+    {{!-- <meta property="og:image" content="./assets/img/title.png"> --}}
+    <meta property="og:url" content="https://intelligent-song-picker.com"> 
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+
     <title>{{ title }}</title>
+     
+    <link rel="canonical" href="https://intelligent-song-picker.com/">
+    <link rel="icon" type="image/png" href="./img/icon-32.png" sizes="32x32">
+    
+    <link rel="dns-prefetch" href="//matomo.florian-kapaun.de">
+    
     <style>
         #placeholder {
             position: fixed;
