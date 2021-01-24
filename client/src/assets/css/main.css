@@ -12,3 +12,10 @@ body {
 a {
     color: inherit;
 }
+
+*:focus {
+    outline-style: dashed;
+    outline-color: var(--ink);
+    outline-width: 3px;
+    outline-offset: 1px;
+}
