@@ -19,9 +19,16 @@ export const refreshTokenController = (req, res) => {
 
     request.post(authOptions, (error, response, body) => {
         if (!error && response.statusCode === 200) {
-            const accessToken = JSON.parse(body).access_token;
+            const accessToken = body.access_token;
+            res.send({ accessToken });
+        } else if (error) {
+            res.send({ error });
+        } else {
             res.send({
-                accessToken: accessToken,
+                errorMessage: 'Could not resolve accessToken',
+                statusCode: response.statusCode,
+                statusMessage: response.statusMessage,
+                body,
             });
         }
     });

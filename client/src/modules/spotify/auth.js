@@ -34,10 +34,16 @@ class SpotifyAuth {
         return fetch(`${c.API_URL}refresh_token?refreshToken=${this.refreshToken}`)
             .then((response) => response.json())
             .then((data) => {
-                this.accessToken = data.accessToken;
-                setCookie(c.COOKIE_NAME_SPOTIFY_ACCESS_TOKEN, this.accessToken);
-                console.info('Successfully updated Spotify AccessToken.');
-                return this.accessToken;
+                if (data.accessToken) {
+                    this.accessToken = data.accessToken;
+                    setCookie(c.COOKIE_NAME_SPOTIFY_ACCESS_TOKEN, this.accessToken);
+                    console.info('Successfully updated Spotify AccessToken.', this.refreshToken);
+                    return this.accessToken;
+                } else if (data.error) {
+                    throw('Received an error while trying to refresh access token: ', data.error);
+                } else if (data.errorMessage) {
+                    throw('Refreshing access token did not work: ', data.errorMessage, data.statusCode, data.statusMessage, data.body);
+                }
             })
             .catch((error) => console.error(error));
     }

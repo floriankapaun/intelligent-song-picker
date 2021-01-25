@@ -52,12 +52,12 @@ class SpotifyPlayer {
         // TODO: Add functionality to those (error) listeners
 
         // Error handling
-        player.addListener('initialization_error', ({ message }) => this.initMobileWorkaround);
+        player.addListener('initialization_error', ({ message }) => this.initMobileWorkaround({ message }));
         player.addListener('authentication_error', async ({ message }) => {
             // If the authentication of the spotify WebPlaybackSDK failed, its probably due to
             // an expired accessToken. In that case, refresh the accessToken provided by spotifyAuth
             // and reset the initialization.
-            console.error(message);
+            console.warn(message, 'Going to refresh access token and retry...');
             await spotifyAuth.refreshAccessToken();
             this._init();
         });
@@ -210,12 +210,12 @@ class SpotifyPlayer {
             .catch((error) => console.error(error));
     }
 
-    async initMobileWorkaround() {
+    async initMobileWorkaround(obj) {
         // Spotify Web Playback SDK is not supported on any mobile devices
         // Therefore I put this dirty workaround in place which searches for another Spotify device
         // preferably a smartphone to play the song on.
         // Alternatives to consider: Either use links to the spotify App or a Spotify Widget
-        console.warn('INIT', message);
+        console.warn('INIT', obj.message);
         const response = await this.getDevices();
         console.log('RESP', response);
         const devices = response.devices;
