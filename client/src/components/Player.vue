@@ -178,7 +178,7 @@ export default {
         if (this.player && this.player.player) {
             this.spotify.player.player.addListener('player_state_changed', (state) => {
                 this.playbackState = state;
-                this.spotify.player.state.playback = state;
+                this.player.state.playback = state;
             });
         }
     },
