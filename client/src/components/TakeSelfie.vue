@@ -83,12 +83,12 @@ export default {
         // Calculate the scale factor to achieve this effect
         const scale = Math.max(windowWidth / videoWidth, windowHeight / videoHeight);
         // Calculate the top left position of the image on the canvas
-        const x = ((windowWidth / 2) - (videoWidth / 2) * scale) * -1;
+        const x = (windowWidth / 2) - (videoWidth / 2) * scale;
         const y = (windowHeight / 2) - (videoHeight / 2) * scale;
         // Invert the context to preserve the inverted video stream (see css)
         context.scale(-1, 1);
         // Draw the scaled image onto the canvas
-        context.drawImage(video, x, y, videoWidth * scale * -1, videoHeight * scale);
+        context.drawImage(video, -x - (videoWidth * scale), y, videoWidth * scale, videoHeight * scale);
         // Calculate img and base64 url
         const img = context.getImageData(0, 0, windowWidth, windowHeight);
         const url = canvas.toDataURL('image/png');
