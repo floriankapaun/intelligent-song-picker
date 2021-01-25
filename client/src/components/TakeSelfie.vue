@@ -41,7 +41,7 @@
         <h2 class="text-m">Take a Selfie</h2>
         <span class="spacing-size_button"></span>
       </div>
-      <p class="w-limited px4">Based on your photo, we will play the perfect song for you. Don't worry, the picture stays on your device. Click the photo button now to get started.</p>
+      <p class="w-limited px4">Based on your photo, ISP will play the perfect song for you. Don't worry, the picture stays on your device. Click the photo button now to get started.</p>
     </section>
   </article>
 </template>
