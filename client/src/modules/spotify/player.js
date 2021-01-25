@@ -215,17 +215,19 @@ class SpotifyPlayer {
         // Therefore I put this dirty workaround in place which searches for another Spotify device
         // preferably a smartphone to play the song on.
         // Alternatives to consider: Either use links to the spotify App or a Spotify Widget
-        console.warn('INIT', obj.message);
+        console.warn('ON INITIALIZING SPOTIFY WEB PLAYBACK SDK:', obj.message);
         const response = await this.getDevices();
-        console.log('RESP', response);
+        console.log('RESP', response.devices);
         const devices = response.devices;
         if (devices && devices.length > 0) {
             this.state.mobileWorkaround = true;
             // Search for a smartphone on which to play the songs
             const smartphone = devices.find((device) => device.type === 'Smartphone');
             if (smartphone) {
+                console.log(this.deviceId, smartphone.type);
                 this.deviceId = smartphone.id;
             } else { 
+                console.log(this.deviceId, devices[0].type);
                 this.deviceId = devices[0].id;
             }
         } else {
