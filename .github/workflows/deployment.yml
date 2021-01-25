@@ -19,6 +19,7 @@ jobs:
           shopt -s extglob
           cd /var/www/virtual/kapaun/intelligent-song-picker.com/_repository/intelligent-song-picker/
           git pull
+          git reset origin --hard
           yarn --cwd client install
           yarn --cwd client build
           rm -r ../../client/*
