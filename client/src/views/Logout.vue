@@ -17,7 +17,6 @@ export default {
             deleteCookie('SPOTIFY_AUTH_ERROR');
             // Cause page reload
             setTimeout(() => this.$router.push({ name: 'home' }), 2000);
-            // TODO: Trigger player.disconnect() on logout to remove the spotify player instance from account
         },
     },
     created() {
