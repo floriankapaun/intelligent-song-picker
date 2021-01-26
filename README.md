@@ -4,7 +4,9 @@ Have you ever felt overwhelmed when choosing a song from Spotify?
 
 This is the moment when ISP will help you.
 
-All you need to do is take a selfie. ISP will do the rest of the magic and provide you with a song that fits your musical taste, feeling and environment.
+All you need to do is take a selfie. ISP will do the rest of the magic* and provide you with a song that fits your musical taste, feeling and environment.
+
+<sub><sup>*Machine learning for face recognition, emotion classification, fancy song search algorithms and other lovely stuff</sup></sub>
 
 Don't worry, the picture stays on your device.
 
