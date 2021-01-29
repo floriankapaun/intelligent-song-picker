@@ -152,8 +152,6 @@ const getBestFittingTrack = (tracks, receivedTracksAudioFeatures, optimalAudioFe
     const audioFeatures = receivedTracksAudioFeatures.audio_features;
     // Calculate error for each tracks features compared to the optimal features
     // Error function: E = Σ (x[i] - y[i])^2
-    // TODO: Improve error calculation. Its not quite good now because some parameters range from 0 to 1 
-    // and others from 0 to 200 and therefore cause a lot higher errors.
     const errors = audioFeatures.map((features) => {
         let error = [];
         for (const [key, optimalValue] of Object.entries(optimalAudioFeatures)) {
