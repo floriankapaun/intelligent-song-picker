@@ -10,6 +10,10 @@ All you need to do is take a selfie. ISP will do the rest of the magic* and prov
 
 Don't worry, the picture stays on your device.
 
+## Demo
+
+[![Click to watch a demo of this project](./docs/vimeo-teaser.png)](https://vimeo.com/506056145 "ISP demo")
+
 ## Try now
 
 > :boom: Try it out right now at [intelligent-song-picker.com](https://intelligent-song-picker.com)!
@@ -72,7 +76,7 @@ This is a list of the core dependencies used in this project for your further re
 
 - [vue.js](https://vuejs.org/)
 - [tensorflow.js](https://www.tensorflow.org/js)
-- [tfjs-emotion-classification](https://github.com/floriankapaun/tfjs-emotion-classification)
+- [tfjs-emotion-classification](https://github.com/floriankapaun/tfjs-emotion-classification) (not a "real" dependecy but implemented)
     - [Blazeface detector](https://github.com/tensorflow/tfjs-models/tree/master/blazeface)
     - [Emotion classification (CNN Model)](https://github.com/oarriaga/face_classification)
 - [webpack](https://webpack.js.org/)
@@ -81,3 +85,12 @@ This is a list of the core dependencies used in this project for your further re
 
 - [Node.js](https://nodejs.org/)
 - [Express.js](https://expressjs.com/)
+
+## ToDo
+
+- Improve stability
+- Add Autoplay function to go on playing songs after the first one is finished
+- Handle Spotify non-premium users
+- Add contenthash to js files for improved caching
+- Create robust mobile version (currently a very bad workaround is in place here)
+- Reduce own queries to spotify and instead leverage the capabilities of the Spotify Web Playback SDK
