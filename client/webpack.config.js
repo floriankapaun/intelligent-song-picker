@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').default;
 const { VueLoaderPlugin } = require('vue-loader');
 const CompressionPlugin = require('compression-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
@@ -33,7 +35,7 @@ module.exports = (env) => {
                 {
                     test: /\.(sa|sc|c)ss$/i,
                     use: [
-                        'style-loader',
+                        mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
                         'css-loader',
                     ],
                 },
@@ -102,6 +104,7 @@ module.exports = (env) => {
                 scriptLoading: 'defer',
                 hash: true,
             }),
+            new HTMLInlineCSSWebpackPlugin(),
             new MiniCssExtractPlugin(),
             new VueLoaderPlugin(),
             new CompressionPlugin({
@@ -133,6 +136,10 @@ module.exports = (env) => {
         },
         optimization: {
             minimize: mode === 'development' ? false : true,
+            minimizer: [
+                `...`,
+                new CssMinimizerPlugin(),
+            ],
         },
     };
 
