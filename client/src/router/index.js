@@ -2,13 +2,13 @@ import { createWebHistory, createRouter } from 'vue-router';
 
 import { getCookie } from '@/utils/index.js';
 
-const Home = () => import(/* webpackChunkName: "home" */ '@/views/Home.vue');
-const Main = () => import(/* webpackChunkName: "group-authenticated" */ '@/views/Main.vue');
-const About = () => import(/* webpackChunkName: "about" */ '@/views/About.vue');
-const Logout = () => import(/* webpackChunkName: "group-else" */ '@/views/Logout.vue');
-const Imprint = () => import(/* webpackChunkName: "group-else" */ '@/views/Imprint.vue');
-const DataPrivacy = () => import(/* webpackChunkName: "group-else" */ '@/views/DataPrivacy.vue');
-const NotFound = () => import(/* webpackChunkName: "group-else" */ '@/views/NotFound.vue');
+const Home = () => import(/* webpackChunkName: "chunk-home" */ '@/views/Home.vue');
+const Main = () => import(/* webpackChunkName: "chunk-group-authenticated" */ '@/views/Main.vue');
+const About = () => import(/* webpackChunkName: "chunk-about" */ '@/views/About.vue');
+const Logout = () => import(/* webpackChunkName: "chunk-group-else" */ '@/views/Logout.vue');
+const Imprint = () => import(/* webpackChunkName: "chunk-group-else" */ '@/views/Imprint.vue');
+const DataPrivacy = () => import(/* webpackChunkName: "chunk-group-else" */ '@/views/DataPrivacy.vue');
+const NotFound = () => import(/* webpackChunkName: "chunk-group-else" */ '@/views/NotFound.vue');
 
 const routes = [
     {

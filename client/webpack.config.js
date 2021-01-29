@@ -104,7 +104,9 @@ module.exports = (env) => {
                 scriptLoading: 'defer',
                 hash: true,
             }),
-            new HTMLInlineCSSWebpackPlugin(),
+            new HTMLInlineCSSWebpackPlugin({
+                filter: (fileName) => !fileName.includes('chunk-'),
+            }),
             new MiniCssExtractPlugin(),
             new VueLoaderPlugin(),
             new CompressionPlugin({
