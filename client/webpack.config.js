@@ -106,6 +106,7 @@ module.exports = (env) => {
             }),
             new HTMLInlineCSSWebpackPlugin({
                 filter: (fileName) => !fileName.includes('chunk-'),
+                styleTagFactory: ({ style }) => `<style type="text/css" rel="preload">${style}</style>`,
             }),
             new MiniCssExtractPlugin(),
             new VueLoaderPlugin(),
