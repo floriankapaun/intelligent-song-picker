@@ -10,6 +10,6 @@
       </router-link>
     </p>
     <p class="text-xs mb3">*Machine learning for face recognition, emotion classification, fancy song search algorithms and other lovely stuff</p>
-    <p class="text-xs">For technical details check out the <a href="https://github.com/floriankapaun/intelligent-song-picker" target="_blank">Github Repository</a>.</p>
+    <p class="text-xs">For technical details check out the <a href="https://github.com/floriankapaun/intelligent-song-picker" target="_blank" rel="noreferrer">Github Repository</a>.</p>
   </main>
 </template>

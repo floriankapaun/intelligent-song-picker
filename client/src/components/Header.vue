@@ -31,7 +31,7 @@
             </section>
             <section class="w-limited flex flex-row flex-wrap justify-between align-center text-xs p3 pb1">
                 <p class="px1 mb2">
-                    © 2020 <a href="https://florian-kapaun.de" target="_blank" accesskey="f" :tabindex="isNavigationMenuOpen ? 0 : -1">Florian Kapaun</a>
+                    © 2020 <a href="https://florian-kapaun.de" target="_blank" rel="noopener" accesskey="f" :tabindex="isNavigationMenuOpen ? 0 : -1">Florian Kapaun</a>
                 </p>
                 <router-link class="px1 mb2" accesskey="i" to="imprint" :tabindex="isNavigationMenuOpen ? 0 : -1" @click="closeMenu">
                     Imprint
