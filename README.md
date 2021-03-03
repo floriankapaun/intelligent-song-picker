@@ -20,7 +20,7 @@ Don't worry, the picture stays on your device.
 
 ## Background
 
-I developed this project during the course [Interaction/Programming](https://glossar.hs-augsburg.de/Lehrveranstaltung:IAM_2006:Interaktion/Programmierung) by [Prof. Dr. Thomas Rist](https://www.hs-augsburg.de/Informatik/Thomas-Rist.html) at the [University of Applied Sciences Augsburg](https://www.hs-augsburg.de/).
+I developed this project during the course [Interaction/Programming](https://glossar.hs-augsburg.de/Lehrveranstaltung:IAM_2006:Interaktion/Programmierung) by [Prof. Dr. Thomas Rist](https://www.hs-augsburg.de/Informatik/Thomas-Rist.html) at the [University of Applied Sciences Augsburg](https://www.hs-augsburg.de/). In addition to the web application I wrote a [paper](./docs/intelligent_song_picker_florian_kapaun.pdf) about this project.
 
 ## Setup
 
