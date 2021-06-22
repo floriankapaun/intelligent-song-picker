@@ -11,7 +11,7 @@ import ComponentCookies from "@/components/Cookies.vue";
 export default {
     mounted() {
         const script = document.createElement("script");
-        script.setAttribute("src", "https://eco-website.com/ping.min.js");
+        script.setAttribute("src", "https://ping.decarb.website/ping.min.js");
         script.async = true;
         script.defer = true;
         document.head.appendChild(script);
